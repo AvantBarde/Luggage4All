@@ -7,7 +7,7 @@ const {
 async function buildTables() {
   try {
     client.connect();
-
+    
     // drop tables in correct order
 
     // build tables in correct order
