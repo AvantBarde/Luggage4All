@@ -1,5 +1,6 @@
 function requireUser(req, res, next) {
     if (!req.user) {
+        res.status(401).send("Authentication failed");
       next({
         name: "No User",
         message: "You must be logged in to perform this action",
@@ -18,4 +19,9 @@ function requireUser(req, res, next) {
     }
   
     next();
+  }
+
+  module.exports = {
+    requireAdmin,
+    requireUser
   }
