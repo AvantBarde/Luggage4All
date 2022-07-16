@@ -45,7 +45,7 @@ async function buildTables() {
           id SERIAL PRIMARY KEY,
           status DEFAULT VALUE created,
           "userId" INTEGER REFERENCES users.id,
-          "datePlaced" TIMESTAMP DEFAULT NOW();
+          "datePlaced" TIMESTAMP DEFAULT NOW()
         )
     `);
     await client.query(`
