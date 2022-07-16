@@ -10,7 +10,7 @@ function requireUser(req, res, next) {
     next();
   }
   
-  function requireAdmin(req, res, next) {
+  function adminRequired(req, res, next) {
     if (!req.user) {
       next({
         name: "MissingAdminError",
@@ -22,6 +22,6 @@ function requireUser(req, res, next) {
   }
 
   module.exports = {
-    requireAdmin,
+    adminRequired,
     requireUser
   }

@@ -19,7 +19,7 @@ async function buildTables() {
         firstName varchar(255) NOT NULL,
         lastName varchar(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        imageURL varchar(255) DEFAULT 'https://imgur.com/a/PGDVLp1',
+        imageURL varchar(255) DEFAULT 'no image',
         username varchar(255) UNIQUE NOT NULL,
         password varchar(255) UNIQUE NOT NULL,
         isAdmin BOOLEAN NOT NULL DEFAULT false
