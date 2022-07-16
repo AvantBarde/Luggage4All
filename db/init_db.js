@@ -1,8 +1,5 @@
-const {
-  client,
-  // declare your model imports here
-  // for example, User
-} = require("./");
+const { client, } = require("./");
+const { createUser } = require('./models')
 
 async function buildTables() {
   try {
@@ -22,11 +19,10 @@ async function buildTables() {
         firstName varchar(255) NOT NULL,
         lastName varchar(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        CHECK (email ~* ‘^[^@]+@[^@]+\.[^@]+$’),
-        imageURL DEFAULT "https://imgur.com/a/PGDVLp1",
+        imageURL varchar(255) DEFAULT 'https://imgur.com/a/PGDVLp1',
         username varchar(255) UNIQUE NOT NULL,
         password varchar(255) UNIQUE NOT NULL,
-        "isAdmin" NOT NULL BOOLEAN DEFAULT false;
+        isAdmin BOOLEAN NOT NULL DEFAULT false
       ) 
     `);
     await client.query(`
@@ -35,26 +31,26 @@ async function buildTables() {
           name varchar(255) NOT NULL,
           description varchar(255) NOT NULL,
           price INTEGER NOT NULL,
-          imageURL DEFAULT "https://imgur.com/a/lRObdTa"
-          inStock NOT NULL BOOLEAN DEFAULT false,
-          category NOT NULL;
+          imageURL varchar(255) DEFAULT "https://imgur.com/a/lRObdTa",
+          inStock BOOLEAN NOT NULL DEFAULT false,
+          category varchar(255) NOT NULL
         )
     `);
     await client.query(`
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
-          status DEFAULT VALUE created,
-          "userId" INTEGER REFERENCES users.id,
-          "datePlaced" TIMESTAMP DEFAULT NOW();
+          status varchar(255) DEFAULT "created",
+          userId INTEGER REFERENCES users,
+          datePlaced TIMESTAMP DEFAULT NOW()
         )
     `);
     await client.query(`
         CREATE TABLE order_products(
           id SERIAL PRIMARY KEY,
-          "productId" INTEGER REFERENCES products.id,
-          "orderId" INTEGER REFERENCES orders.id,
+          productId INTEGER REFERENCES products.id,
+          orderId INTEGER REFERENCES orders.id,
           price INTEGER NOT NULL,
-          quantity INTEGER DEFAULT VALUE 0;
+          quantity INTEGER DEFAULT 0
         )
     `);
   } catch (error) {
@@ -67,11 +63,19 @@ async function populateInitialData() {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
-    const usersToCreate = [
-      { username: "albert", password: "bertie99", email: "bertie99@hotmail.com" },
+    const usersToCreate = await createUser(
+      {
+        username: "albert",
+        password: "bertie99",
+        email: "bertie99@hotmail.com",
+      },
       { username: "sandra", password: "sandra123", email: "sandra321@aol.com" },
-      { username: "glamgal", password: "glamgal123", email: "glamgal321@gmail.com" },
-    ];
+      {
+        username: "glamgal",
+        password: "glamgal123",
+        email: "glamgal321@gmail.com",
+      }
+    );
   } catch (error) {
     throw error;
   }
