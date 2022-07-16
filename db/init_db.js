@@ -31,7 +31,7 @@ async function buildTables() {
           name varchar(255) NOT NULL,
           description varchar(255) NOT NULL,
           price INTEGER NOT NULL,
-          imageURL varchar(255) DEFAULT "https://imgur.com/a/lRObdTa",
+          imageURL TEXT DEFAULT "https://imgur.com/a/lRObdTa",
           inStock BOOLEAN NOT NULL DEFAULT false,
           category varchar(255) NOT NULL
         )
