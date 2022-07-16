@@ -7,11 +7,7 @@ const {
 async function buildTables() {
   try {
     client.connect();
-<<<<<<< HEAD
-    
-=======
     console.log("Starting to build tables..");
->>>>>>> 45129aa10d5736c2c6632a4e05a9cfcd9a96869a
     // drop tables in correct order
     await client.query(`
       DROP TABLE IF EXISTS order_products;
@@ -49,7 +45,7 @@ async function buildTables() {
           id SERIAL PRIMARY KEY,
           status DEFAULT VALUE created,
           "userId" INTEGER REFERENCES users.id,
-          "datePlaced" TIMESTAMP DEFAULT NOW();
+          "datePlaced" TIMESTAMP DEFAULT NOW()
         )
     `);
     await client.query(`
