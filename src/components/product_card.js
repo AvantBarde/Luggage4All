@@ -2,9 +2,13 @@ import React from "react";
 
 import React from 'react'
 
-function product_card() {
+function product_card({title, imageUrl, body}) {
   return (
-    <div>product_card</div>
+    <div className="card-container">
+        <div className="image-container">
+            <img src={imageUrl} alt='' />        
+        </div>
+    </div>
   )
 }
 
