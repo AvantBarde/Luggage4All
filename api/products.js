@@ -1,6 +1,6 @@
 const express = require("express");
 const productsRouter = express.Router();
-const { Products } = require("../db");
+const { Products } = require("../db/models");
 const { adminRequired } = require("./utils");
 
 // Route to get all products
