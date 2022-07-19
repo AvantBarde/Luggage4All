@@ -19,7 +19,11 @@ async function buildTables() {
         firstName varchar(255) NOT NULL,
         lastName varchar(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
+<<<<<<< HEAD
         imageURL varchar(255) DEFAULT 'no image',
+=======
+        "imageURL" TEXT DEFAULT 'https://imgur.com/a/PGDVLp1',
+>>>>>>> 26aa21fc802a9581b91eb6c571cb41262296782b
         username varchar(255) UNIQUE NOT NULL,
         password varchar(255) UNIQUE NOT NULL,
         isAdmin BOOLEAN NOT NULL DEFAULT false
@@ -31,7 +35,7 @@ async function buildTables() {
           name varchar(255) NOT NULL,
           description varchar(255) NOT NULL,
           price INTEGER NOT NULL,
-          imageURL varchar(255) DEFAULT "https://imgur.com/a/lRObdTa",
+          imageURL TEXT DEFAULT "https://imgur.com/a/lRObdTa",
           inStock BOOLEAN NOT NULL DEFAULT false,
           category varchar(255) NOT NULL
         )
