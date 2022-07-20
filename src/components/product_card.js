@@ -1,7 +1,7 @@
 import React from "react";
 import "./product_card.css";
 
-function product_card({ title, imageUrl, body }) {
+function ProductCard({ title, imageUrl, body }) {
   return (
     <div className="card-container">
       <div className="image-container">
@@ -24,4 +24,4 @@ function product_card({ title, imageUrl, body }) {
   );
 }
 
-export default product_card;
+export default ProductCard;
