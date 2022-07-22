@@ -1,12 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
 import { getAPIHealth } from '../axios-services';
 import '../style/App.css';
+import { Route, Switch } from "react-router-dom";
+import Login from "./login";
+import  Products  from "./products";
+import  OrderProducts  from "./order_products";
+import  Register from "./register";
+ import  AddToCart from "./addToCart";
+
+ import  Home  from "./Home";
+import UserProfile from './userProfile';
 
 const App = () => {
-  const [APIHealth, setAPIHealth] = useState('');
+  const [signedIn, setSignedIn] = useState(false);
+  const [adminSignedIn, setAdminSignedIn] = useState(false);
+  const [originalProducts, setOriginalProducts] = useState([]);
+  const [searchItem, setSearchItem] = useState("");
+  const token = localStorage.getItem("token");
+  const [products, setProducts] = useState([]);
+  const [guestCart, setGuestCart] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [cartChange, setCartChange] = useState(0);
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -23,10 +40,31 @@ const App = () => {
   }, []);
 
   return (
+    <>
     <div className="app-container">
       <h1>Hello, World!</h1>
       <p>API Status: {APIHealth}</p>
     </div>
+    <Switch>
+      <Route exact path = "/products">
+        <Products token = {token} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
+      </Route>
+      <Route exact path = "/users/:userId">
+        <UserProfile token = {token} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
+      </Route>
+      <Route exact path = "/register">
+        <Register token = {token} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+      </Route>
+      <Route exact path = "/login">
+        <Login token = {token} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+      </Route>
+
+  
+    </Switch>
+    
+    </>
+    
+    
   );
 };
 
