@@ -57,8 +57,8 @@ async function buildTables() {
     await client.query(`
      CREATE TABLE cart(
       id SERIAL PRIMARY KEY,
-      userId INTEGER REFERENCES users.id,
-      productId INTEGER REFERENCES products.id,
+      "userId" INTEGER REFERENCES users.id,
+      "productId" INTEGER REFERENCES products.id,
       price INTEGER NOT NULL,
       quantity INTEGER DEFAULT 0
     )

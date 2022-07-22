@@ -5,7 +5,7 @@ const addProductToCart = async (userId, productId, quantity) => {
     try {
         const { rows: cart } = await client.query(
         `
-        INSERT INTO cart (user_id, product_id, quantity)
+        INSERT INTO cart ("userId", "productId", quantity)
         VALUES ($1, $2, $3)
         RETURNING *;
         `,
@@ -24,7 +24,7 @@ const addProductToCart = async (userId, productId, quantity) => {
             `
             SELECT *
             FROM cart
-            WHERE user_id=${userId}
+            WHERE "userId"=${userId}
             `
             );
             return cart;
@@ -39,8 +39,8 @@ const addProductToCart = async (userId, productId, quantity) => {
             const { rows: cart } = await client.query(
             `
             DELETE FROM cart
-            WHERE user_id=${userId}
-            AND product_id=${productId}
+            WHERE "userId"=${userId}
+            AND "productId"=${productId}
             RETURNING *;
             `
             );
@@ -57,8 +57,8 @@ const addProductToCart = async (userId, productId, quantity) => {
             `
             UPDATE cart
             SET quantity=${quantity}
-            WHERE user_id=${userId}
-            AND product_id=${productId}
+            WHERE "userId"=${userId}
+            AND "productId"=${productId}
             RETURNING *;
             `
             );
@@ -75,7 +75,7 @@ const addProductToCart = async (userId, productId, quantity) => {
             `
             SELECT SUM(quantity * price) AS total
             FROM cart
-            WHERE user_id=${userId}
+            WHERE "userId"=${userId}
             `
             );
             return cart;
