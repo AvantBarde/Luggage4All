@@ -30,7 +30,7 @@ export async function getAPIHealth() {
 
 export async function getProductCard(id) {
   try {
-    const { data: product } = await axios.get(`/api/products/${productId}`);
+    const { data: product } = await axios.get(`/api/products/${id}`);
     return product;
   } catch (err) {
     console.error(err);
