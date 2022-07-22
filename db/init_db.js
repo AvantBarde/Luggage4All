@@ -7,6 +7,7 @@ async function buildTables() {
     console.log("Starting to build tables..");
     // drop tables in correct order
     await client.query(`
+      DROP TABLE IF EXISTS cart;
       DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS products;
@@ -53,6 +54,16 @@ async function buildTables() {
           quantity INTEGER DEFAULT 0
         )
     `);
+    await client.query(`
+     CREATE TABLE cart(
+      id SERIAL PRIMARY KEY,
+      "userId" INTEGER REFERENCES users.id,
+      "productId" INTEGER REFERENCES products.id,
+      price INTEGER NOT NULL,
+      quantity INTEGER DEFAULT 0
+    )
+    `);
+    console.log("Tables built successfully!");
   } catch (error) {
     throw error;
   }
