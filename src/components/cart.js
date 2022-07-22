@@ -4,7 +4,7 @@ import { Card, Container } from 'react-bootstrap'
 import { getCart } from '../../db/models/cart'
 
 
-function Cart() {
+function Cart(props) {
 
     const [cart, setCart] = useState([])
     const [error, setError] = useState('')
