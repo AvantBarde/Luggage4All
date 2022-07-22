@@ -100,6 +100,23 @@ async function deleteUser(userId) {
   }
 }
 
+// update user by id
+async function updateUser(userId, username, password, firstName, lastName, email) {
+  try {
+    const { rows: user } = await client.query(`
+      UPDATE users
+      SET firstName=${firstName}, lastName=${lastName}, username=${username}, password=${password}, email=${email}
+      WHERE id=${userId}
+      RETURNING *;
+    `);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+
 module.exports = {
   // add your database adapter fns here
   getAllUsers,
@@ -108,4 +125,5 @@ module.exports = {
   getUserById,
   getUserByUsername,
   deleteUser,
+  updateUser,
 };

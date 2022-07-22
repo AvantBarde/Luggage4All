@@ -95,7 +95,34 @@ ordersRouter.patch('/:orderProductId', adminRequired, async (req, res, next) => 
     }
   }
   )
-  
+
+// PATCH /orders/:orderId (**)
+// Update an order, notably change status
+ordersRouter.patch('/:orderId', adminRequired, async (req, res, next) => {
+  try {
+    const order = await Orders.updateOrderProduct(req.params.orderId, req.body)
+    if (order) {
+      res.send(order)
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+)
+
+//  DELETE /orders/:orderId (**)
+// Update the order's status to cancelled
+ordersRouter.delete('/:orderId', adminRequired, async (req, res, next) => {
+  try {
+    const order = await Orders.cancelOrder(req.params.orderId)
+    if (order) {
+      res.send(order)
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+)
 
 
 

@@ -113,6 +113,60 @@ async function addProductToOrder({ orderId, productId, price, quantity }) {
   }
 }
 
+// update order product
+
+async function updateOrderProduct({ id, status, userId }) {
+  // on't update the order id, but do update the status and/or userId, as necessary
+  try {
+    if (status) {
+      const result = await client.query(
+        `UPDATE orders SET status = $1 WHERE id = $2 RETURNING *`,
+        [status, id]
+      );
+      return result.rows[0];
+    }
+    if (userId) {
+      const result = await client.query(
+        `UPDATE orders SET "userId" = $1 WHERE id = $2 RETURNING *`,
+        [userId, id]
+      );
+      return result.rows[0];
+    }
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+// complete order
+async function completeOrder({ id }) {
+  try {
+    const result = await client.query(
+      `UPDATE orders SET status = 'complete' WHERE id = $1 RETURNING *`,
+      [id]
+    );
+    return result.rows[0];
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+// cancel order
+async function cancelOrder({ id }) {
+  try {
+    const result = await client.query(
+      `UPDATE orders SET status = 'cancelled' WHERE id = $1 RETURNING *`,
+      [id]
+    );
+    return result.rows[0];
+  }
+  catch (error) {
+    throw error;
+  }
+}
+
+
 
 
 module.exports = {
@@ -122,5 +176,8 @@ module.exports = {
   getOrdersByProduct,
   getCartByUser,
   createOrder,
-  addProductToOrder
+  addProductToOrder,
+  updateOrderProduct,
+  completeOrder,
+  cancelOrder,
 };

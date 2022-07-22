@@ -118,6 +118,23 @@ usersRouter.get("/", adminRequired, async (req, res, next) => {
     }
 );
 
+// updateuser(user)
+usersRouter.patch("/:userId", adminRequired, async (req, res, next) => {
+    const { userId } = req.params;
+    const { username, password, firstName, lastName, email } = req.body;
+    if (!userId || !username || !password || !firstName || !lastName || !email) {
+        res.status(400).send("Missing required fields");
+    } else {
+        try {
+        const user = await User.updateUser(userId, username, password, firstName, lastName, email);
+        res.send(user);
+        } catch (error) {
+        next(error);
+        }
+    }
+    }
+);
+
 
 
 
