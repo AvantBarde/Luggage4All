@@ -52,5 +52,52 @@ ordersRouter.get('/:userId', adminRequired, async (req, res, next) => {
 }
 )
 
+//  POST /orders/:orderId/products (**)
+// Add a single product to an order (using order_products). Prevent duplication on ("orderId", "productId") pair. If product already exists on order, increment quantity and update price.
+
+ordersRouter.post('/:orderId/products', adminRequired, async (req, res, next) => {
+  try {
+    const order = await Orders.addProductToOrder(req.params.orderId, req.body)
+    if (order) {
+      res.send(order)
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+)
+
+//  PATCH /order_products/:orderProductId (**)
+//  Update the quantity or price on the order product
+ordersRouter.patch('/:orderProductId', adminRequired, async (req, res, next) => {
+  try {
+    const order = await Orders.updateOrderProduct(req.params.orderProductId, req.body)
+    if (order) {
+      res.send(order)
+    }
+  } catch (error) {
+    next(error)
+  }
+}
+)
+
+//  DELETE /order_products/:orderProductId (**)
+ // Remove a product from a order, use hard delete
+
+  ordersRouter.delete('/:orderProductId', adminRequired, async (req, res, next) => {
+    try {
+      const order = await Orders.deleteOrderProduct(req.params.orderProductId)
+      if (order) {
+        res.send(order)
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+  )
+  
+
+
+
 
 module.exports = ordersRouter
