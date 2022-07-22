@@ -30,4 +30,4 @@ function UpdateProductsInCart(props) {
     </Button>
     )
 }
-export default UpdateProductsInCartprops
+export default UpdateProductsInCart
