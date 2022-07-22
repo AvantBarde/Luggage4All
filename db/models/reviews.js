@@ -83,4 +83,4 @@ const checkIfUserHasAlreadyLeftReview = async ({ userId, productId }) => {
 
 
 
-export { addReview, removeReview, updateReview };
+export { addReview, removeReview, updateReview, checkIfUserHasAlreadyLeftReview, getReviewsByProductId, deleteReviewsByUserId };
