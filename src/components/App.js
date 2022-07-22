@@ -19,7 +19,7 @@ const App = () => {
   const [adminSignedIn, setAdminSignedIn] = useState(false);
   const [originalProducts, setOriginalProducts] = useState([]);
   const [searchItem, setSearchItem] = useState("");
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(""); 
   const [products, setProducts] = useState([]);
   const [guestCart, setGuestCart] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -47,16 +47,16 @@ const App = () => {
     </div>
     <Switch>
       <Route exact path = "/products">
-        <Products token = {token} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
+        <Products token = {token} setToken = {setToken} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
       </Route>
       <Route exact path = "/users/:userId">
-        <UserProfile token = {token} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
+        <UserProfile token = {token} setToken = {setToken} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
       </Route>
       <Route exact path = "/register">
-        <Register token = {token} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+        <Register token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn = {setSignedIn} />
       </Route>
       <Route exact path = "/login">
-        <Login token = {token} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+        <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn = {setSignedIn} />
       </Route>
 
   
