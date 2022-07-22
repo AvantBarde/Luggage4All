@@ -8,7 +8,7 @@ import { updateUser } from '../../db/models/user'
 
 function UserProfile() {
 
-    const { userId } = useParams(:userId)
+    const { userId } = useParams()
     const [error, setError] = useState('')
     const history = useHistory()
     const [username, setUsername] = useState('')
@@ -58,7 +58,7 @@ useEffect (() => {
 
   return (
     <Container>
-        <h1>User Profile</h1>
+        <h1>${username}'s Profile</h1>
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicUsername">
                 <Form.Label>Username</Form.Label>
