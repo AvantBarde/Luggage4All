@@ -1,9 +1,12 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
+import { getUser } from '../../db/models/user'
+import { updateUser } from '../../db/models/user'
 
 
-function UserProfile(props) {
+
+function UserProfile() {
 
     const { userId } = useParams(:userId)
     const [error, setError] = useState('')
