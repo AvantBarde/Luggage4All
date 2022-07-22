@@ -1,10 +1,8 @@
 import React from 'react'
+import { deleteProductFromCart } from '../../db/models/cart'
 import { Button } from 'react-bootstrap'
-import { addProductToCart } from '../../db/models/cart'
-import { useHistory } from "react-router-dom";
 
-
-function AddToCart(props) {
+function DeleteFromCart(props) {
 
     const [error, setError] = useState('')
     const history = useHistory()
@@ -12,11 +10,11 @@ function AddToCart(props) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await addProductToCart (props.userId, props.productId, props.quantity)
+            const response = await deleteProductFromCart (props.userId, props.productId)
             if (response) {
                 history.push('/cart')
             } else {
-                setError('Error adding to cart')
+                setError('Error deleting from cart')
             }
         }
         catch (error) {
@@ -26,12 +24,11 @@ function AddToCart(props) {
 
 
 
-
   return (
     <Button variant="primary" type="submit" onClick={handleSubmit}>
-        Add to Cart
+        Delete from Cart
     </Button>
   )
 }
 
-export default AddToCart
+export default DeleteFromCart
