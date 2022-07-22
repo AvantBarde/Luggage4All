@@ -11,7 +11,7 @@ function Cart(props) {
 
     useEffect (() => {
         try {
-            const response = getCart(userId)
+            const response = getCart(props.serId)
             if (response) {
                 setCart(response)
             } else {
