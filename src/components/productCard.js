@@ -20,7 +20,7 @@ function ProductCard(props) {
                 <Card.Text>{price}</Card.Text>
                 <Card.Text>{inStock}</Card.Text>
                 <Card.Text>{category}</Card.Text>
-                <AddToCart/>
+                <AddToCart userId={props.userId} productId={props.productId} />
             </Card.Body>
         </Card>
   )
