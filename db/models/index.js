@@ -48,7 +48,7 @@ module.exports = {
   /***************
 * EXPORTING DB FUNCTIONS (x) *
 ***************/
-//WHEN IMPORTING TO API file, const { x } = require('./db/modelss'); which refers to this file 
+//WHEN IMPORTING TO API file, const { x } = require('./db/models'); which refers to this file 
   getOrderProductById,
   addProductToOrder,
   updateOrderProduct,

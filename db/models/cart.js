@@ -85,11 +85,29 @@ const addProductToCart = async (userId, productId, quantity) => {
         }
     }
 
+    // sql to delete all items in cart
+    const deleteAllProductsFromCart = async (userId) => {
+        try {
+            const { rows: cart } = await client.query(
+            `
+            DELETE FROM cart
+            WHERE "userId"=${userId}
+            RETURNING *;
+            `
+            );
+            return cart;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     module.exports = {
         addProductToCart,
         getCart,
         deleteProductFromCart,
         updateProductInCart,
-        getTotalPrice
+        getTotalPrice,
+        deleteAllProductsFromCart
     }
     

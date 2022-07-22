@@ -25,6 +25,16 @@ const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [cartChange, setCartChange] = useState(0);
 
+  const fetchUserData = async (token) => {
+    const { data } = await API({
+      url: "/users/me",
+      token,
+    });
+    setUserData(data);
+    console.log(userData);
+    return data;
+  };
+
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
     // first, create an async function that will wrap your axios service adapter

@@ -1,14 +1,50 @@
-import React, {useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react'
+import { Button, Card, Container } from 'react-bootstrap'
+import { getProducts } from '../../db/models/products'
+import { ProductCard } from './productCard'
 
-function Products({setToken}) {
-    const [productId, setProductId] = useState(null);
-    const [quantity, setQuantity] = useState(1);
-    setToken(localStorage.getItem("token"));
+
+function Products() {
+
+    const [error, setError] = useState('')
+    const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(true)
+ 
+    useEffect (() => {
+        try {
+            const response = getAllProducts()
+            if (response) {
+                setProducts(response)
+                setLoading(false)
+            } else {
+                setError('Error getting products')
+            }
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
+    , [])
+
+    
+    
+
 
 
   return (
-    <div>products</div>
+    <Container>
+        <h1>Products</h1>
+        {products.map(product => (
+            <ProductCard key={product.productId} 
+            name={product.name}
+            description={product.description}
+            price={product.price}
+            imageURL={product.imageURL}
+            inStock={product.inStock}
+            category={product.category}
+             />
+        ))}
+    </Container>
   )
 }
 

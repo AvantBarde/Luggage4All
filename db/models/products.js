@@ -24,7 +24,8 @@ category
 
 async function getProductById(id){
     try {
-        const { rows: product } = await client.query(`
+        // product in destructured array because it unpacks a single value from rows 
+        const { rows: [product] } = await client.query(`
             SELECT *
             FROM products
             WHERE id=$1;
@@ -38,7 +39,8 @@ async function getProductById(id){
 
 async function getAllProducts(){
     try {
-        const { rows: [products] } = await client.query(`
+        //not in destructured array because we need all the values from rows
+        const { rows: products } = await client.query(`
             SELECT *
             FROM products;
         `)

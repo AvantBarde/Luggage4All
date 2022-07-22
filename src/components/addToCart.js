@@ -12,7 +12,7 @@ function AddToCart(props) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await addProductToCart (props.userId, props.productId, props.quantity)
+            const response = await addProductToCart(props.userId, props.productId, props.quantity)
             if (response) {
                 history.push('/cart')
             } else {
