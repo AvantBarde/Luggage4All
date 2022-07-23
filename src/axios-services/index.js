@@ -46,6 +46,15 @@ export async function getAllProducts() {
   }
 }
 
+
+export async function getSingleProduct(id) {
+  try {
+    const { data: product } = await axios.get(`/api/products/${id}`);
+    return product;
+  } catch (err) {
+    console.error(err);
+  }
+
 export async function reqHeaders(token) {
   return (token ? 
     {
