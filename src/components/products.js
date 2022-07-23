@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Card, Container } from 'react-bootstrap'
 import { getProducts } from '../../db/models/products'
-import { ProductCard } from './productCard'
+import { ProductCard } from './product_card'
 
 
 function Products() {
