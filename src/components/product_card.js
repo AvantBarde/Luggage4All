@@ -1,11 +1,12 @@
 import React from "react";
 import "./product_card.css";
+import BaseLuggage from '../assets/4HzWD2k.jpeg'
 
 function ProductCard({ title, imageUrl, body }) {
   return (
     <div className="card-container">
       <div className="image-container">
-        <img src={imageUrl} alt="" />
+        <img src={BaseLuggage} alt="" />
       </div>
       <div className="card-content">
         <div className="card-title">
