@@ -27,3 +27,53 @@ export async function getAPIHealth() {
     return { healthy: false };
   }
 }
+
+export async function getProductCard(id) {
+  try {
+    const { data: product } = await axios.get(`/api/products/${id}`);
+    return product;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getAllProducts() {
+  try {
+    const { data: products } = await axios.get('/api/products');
+    return products;
+  } catch (error) {
+    console.error(err);
+  }
+}
+
+export async function reqHeaders(token) {
+  return (token ? 
+    {
+        "Content-Type" : "application/json",
+        "Authorization" : `Bearer ${token}`
+    } :
+    {
+        "Content-Type" : "application/json"
+    } )
+  }
+
+export async function tokenAuth(authType, method, username, password) {
+  fetch(`api/users/${authType}`, {
+    method: method ? method.toUpperCase() : "GET",
+    headers : {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+      user: {
+        username: username,
+        password: password
+      }
+    })
+  }).then(response => response.json())
+    .then(result => {
+      setToken(result.data.token);
+      localStorage.setItem("jwt", result.data.token);
+      alert(result.data.message);
+    })
+    .catch(console.error);
+}
