@@ -6,7 +6,7 @@ import { Col, ButtonGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useHistory } from "react-router-dom";
 // import { getUser } from '../../db/models'
-import { getUser } from '/src/axios-services/index.js'
+import { getUser } from "../axios-services/" 
 
 function Login() {
 

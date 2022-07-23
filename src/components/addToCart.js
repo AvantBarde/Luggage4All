@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 // import { addProductToCart } from '../../db/models/cart'
 import { useHistory } from "react-router-dom";
-import { addProductToCart } from 'src/axios-services/index.js'
+import { addProductToCart } from "../axios-services"
 
 
 function AddToCart(props) {

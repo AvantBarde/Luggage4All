@@ -18,6 +18,34 @@ import axios from 'axios';
   }
 */
 
+export async function getUser() {
+  try {
+    const { data: users } = await axios.get('/api/users')
+    return users;
+  } catch(err) {
+    console.error(err)
+  }
+}
+
+export function updateUser (userId, username, password, email, firstName, lastName, imageURL) {
+  return axios.put(`/api/users/${userId}`, {
+    username,
+    password,
+    email,
+    firstName,
+    lastName,
+    imageURL
+  })
+}
+
+
+export function addProductToCart(userId, productId) {
+  return axios.put(`/api/users/${userId}/cart`, {
+    productId
+  })
+}
+
+
 export async function getAPIHealth() {
   try {
     const { data } = await axios.get('/api/health');
@@ -54,6 +82,7 @@ export async function getSingleProduct(id) {
   } catch (err) {
     console.error(err);
   }
+}
 
 export async function reqHeaders(token) {
   return (token ? 
@@ -107,4 +136,12 @@ export async function tokenRegister( method, username, password, setToken) {
       alert(result.data.message);
     })
     .catch(console.error);
+}
+
+export async function tokenAuth(token) {
+  return axios.get(`/api/users/auth`, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
 }
