@@ -29,7 +29,6 @@ export async function getAPIHealth() {
   }
 }
 
-<<<<<<< HEAD
 export async function getUser(id) {
   try {
     const { data } = await axios.get(`/api/users/${id}`);
@@ -59,76 +58,3 @@ export async function addProductToCart(product) {
     return null;
   }
 }
-=======
-export async function getProductCard(id) {
-  try {
-    const { data: product } = await axios.get(`/api/products/${id}`);
-    return product;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export async function getAllProducts() {
-  try {
-    const { data: products } = await axios.get('/api/products');
-    return products;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export async function reqHeaders(token) {
-  return (token ? 
-    {
-        "Content-Type" : "application/json",
-        "Authorization" : `Bearer ${token}`
-    } :
-    {
-        "Content-Type" : "application/json"
-    } )
-  }
-
-export async function tokenLogin( method, username, password, setToken) {
-  fetch(`api/users/login`, {
-    method: method ? method.toUpperCase() : "GET",
-    headers : {
-      "Content-Type" : "application/json"
-    },
-    body: JSON.stringify({
-      user: {
-        username: username,
-        password: password
-      }
-    })
-  }).then(response => response.json())
-    .then(result => {
-      setToken(result.data.token);
-      localStorage.setItem("jwt", result.data.token);
-      alert(result.data.message);
-    })
-    .catch(console.error);
-}
-
-
-export async function tokenRegister( method, username, password, setToken) {
-  fetch(`api/users/register`, {
-    method: method ? method.toUpperCase() : "GET",
-    headers : {
-      "Content-Type" : "application/json"
-    },
-    body: JSON.stringify({
-      user: {
-        username: username,
-        password: password
-      }
-    })
-  }).then(response => response.json())
-    .then(result => {
-      setToken(result.data.token);
-      localStorage.setItem("jwt", result.data.token);
-      alert(result.data.message);
-    })
-    .catch(console.error);
-}
->>>>>>> 713c1c95ba55b5bd37620d120d9252f73f6e689d
