@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { addProductToCart } from '../../db/models/cart'
 import { useHistory } from "react-router-dom";
 import AddToCart from './addToCart';

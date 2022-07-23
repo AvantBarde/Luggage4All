@@ -46,6 +46,15 @@ export async function getAllProducts() {
   }
 }
 
+
+export async function getSingleProduct(id) {
+  try {
+    const { data: product } = await axios.get(`/api/products/${id}`);
+    return product;
+  } catch (err) {
+    console.error(err);
+  }
+
 export async function reqHeaders(token) {
   return (token ? 
     {
@@ -57,8 +66,30 @@ export async function reqHeaders(token) {
     } )
   }
 
-export async function tokenAuth(authType, method, username, password, setToken) {
-  fetch(`api/users/${authType}`, {
+export async function tokenLogin( method, username, password, setToken) {
+  fetch(`api/users/login`, {
+    method: method ? method.toUpperCase() : "GET",
+    headers : {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+      user: {
+        username: username,
+        password: password
+      }
+    })
+  }).then(response => response.json())
+    .then(result => {
+      setToken(result.data.token);
+      localStorage.setItem("jwt", result.data.token);
+      alert(result.data.message);
+    })
+    .catch(console.error);
+}
+
+
+export async function tokenRegister( method, username, password, setToken) {
+  fetch(`api/users/register`, {
     method: method ? method.toUpperCase() : "GET",
     headers : {
       "Content-Type" : "application/json"

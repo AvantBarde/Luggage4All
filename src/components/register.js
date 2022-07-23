@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { Button, Form, Container, ButtonGroup} from 'react-bootstrap'
-import LinkContainer from 'react-router-bootstrap'
-import { createUser } from '../../db/models';
+import { Button, Form, Container, ButtonGroup  } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 
 
 function Register() {
@@ -14,18 +13,17 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        try {
-            const response = await createUser ({username, password})
-            if (response) {
-                localStorage.setItem('user', JSON.stringify(response))
-                history.push('/')
-            } else {
-                setError('Invalid username or password')
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
+
+            if(password===confirmPassword){
+                tokenAuth(userName, password, setToken)
+                setPassword("");
+                setUsername("");
+                setConfirmPassword("");
+                return
+            } alert("Passwords must match one another")
+            setPassword("");
+            setUsername("");
+            setConfirmPassword("");
     }
 
 
