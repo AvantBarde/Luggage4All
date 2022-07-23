@@ -41,7 +41,7 @@ export async function getAllProducts() {
   try {
     const { data: products } = await axios.get('/api/products');
     return products;
-  } catch (error) {
+  } catch (err) {
     console.error(err);
   }
 }
@@ -57,7 +57,7 @@ export async function reqHeaders(token) {
     } )
   }
 
-export async function tokenAuth(authType, method, username, password) {
+export async function tokenAuth(authType, method, username, password, setToken) {
   fetch(`api/users/${authType}`, {
     method: method ? method.toUpperCase() : "GET",
     headers : {

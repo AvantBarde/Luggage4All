@@ -15,15 +15,18 @@ import UserProfile from "./userProfile";
 import ProductCard from "./ProductCard";
 
 const App = () => {
+  const localStorageToken = localStorage.getItem('jwt');
+
+  const [token, setToken] = useState(localStorageToken);
   const [signedIn, setSignedIn] = useState(false);
   const [adminSignedIn, setAdminSignedIn] = useState(false);
   const [originalProducts, setOriginalProducts] = useState([]);
   const [searchItem, setSearchItem] = useState("");
-  const [token, setToken] = useState("");
   const [products, setProducts] = useState([]);
   const [guestCart, setGuestCart] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
   const [cartChange, setCartChange] = useState(0);
+  const [APIHealth, setAPIHealth] = useState('');
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -41,56 +44,28 @@ const App = () => {
 
   return (
     <>
-      <div className="app-container">
-        <h1>Hello, World!</h1>
-        <p>API Status: {APIHealth}</p>
-        <ProductCard />
-      </div>
-      <Switch>
-        <Route exact path="/products">
-          <Products
-            token={token}
-            setToken={setToken}
-            products={products}
-            setProducts={setProducts}
-            originalProducts={originalProducts}
-            setOriginalProducts={setOriginalProducts}
-            shoppingCart={shoppingCart}
-            setShoppingCart={setShoppingCart}
-            guestCart={guestCart}
-            setGuestCart={setGuestCart}
-            searchItem={searchItem}
-            setSearchItem={setSearchItem}
-            cartChange={cartChange}
-            setCartChange={setCartChange}
-          />
-        </Route>
-        <Route exact path="/users/:userId">
-          <UserProfile
-            token={token}
-            setToken={setToken}
-            adminSignedIn={adminSignedIn}
-            setAdminSignedIn={setAdminSignedIn}
-            setSignedIn={setSignedIn}
-          />
-        </Route>
-        <Route exact path="/register">
-          <Register
-            token={token}
-            setToken={setToken}
-            signedIn={signedIn}
-            setSignedIn={setSignedIn}
-          />
-        </Route>
-        <Route exact path="/login">
-          <Login
-            token={token}
-            setToken={setToken}
-            signedIn={signedIn}
-            setSignedIn={setSignedIn}
-          />
-        </Route>
-      </Switch>
+    <div className="app-container">
+      <h1>Hello, World!</h1>
+      <p>API Status: {APIHealth}</p>
+    </div>
+    
+    <Switch>
+      <Route exact path = "/products">
+        <Products token = {token} setToken = {setToken} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
+      </Route>
+      <Route exact path = "/users/:userId">
+        <UserProfile token = {token} setToken = {setToken} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
+      </Route>
+      <Route exact path = "/register">
+        <Register token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+      </Route>
+      <Route exact path = "/login">
+        <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+      </Route>
+
+  
+    </Switch>
+    
     </>
   );
 };

@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { useParams, useHistory} from 'react-router'
 import { useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { getUser } from "../../db/models/user";
 import { updateUser } from "../../db/models/user";
+=======
+import React, { useState, useHistory, useParams} from 'react'
+import { useEffect } from 'react'
+import { Container, Form } from 'react-bootstrap'
+import { getUser } from '../../db/models/user'
+import { updateUser } from '../../db/models/user'
+
+
+>>>>>>> 2f01cfe21d37bc898dfc51b111d1b3b7851e0dc1
 
 function UserProfile() {
   const { userId } = useParams();
