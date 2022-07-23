@@ -13,7 +13,7 @@ function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        try {
+
             if(password===confirmPassword){
                 tokenAuth(userName, password, setToken)
                 setPassword("");
@@ -24,11 +24,6 @@ function Register() {
             setPassword("");
             setUsername("");
             setConfirmPassword("");
-          }}>
-        }
-        catch (error) {
-            console.error(error)
-        }
     }
 
 
