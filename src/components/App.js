@@ -15,15 +15,18 @@ import  Register from "./register";
 import UserProfile from './userProfile';
 
 const App = () => {
+  const localStorageToken = localStorage.getItem('jwt');
+
+  const [token, setToken] = useState(localStorageToken);
   const [signedIn, setSignedIn] = useState(false);
   const [adminSignedIn, setAdminSignedIn] = useState(false);
   const [originalProducts, setOriginalProducts] = useState([]);
   const [searchItem, setSearchItem] = useState("");
-  const [token, setToken] = useState(""); 
   const [products, setProducts] = useState([]);
   const [guestCart, setGuestCart] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
   const [cartChange, setCartChange] = useState(0);
+  const [APIHealth, setAPIHealth] = useState('');
 
  
   useEffect(() => {
@@ -46,6 +49,7 @@ const App = () => {
       <h1>Hello, World!</h1>
       <p>API Status: {APIHealth}</p>
     </div>
+    
     <Switch>
       <Route exact path = "/products">
         <Products token = {token} setToken = {setToken} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
