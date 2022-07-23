@@ -62,7 +62,7 @@ function Ratings(props) {
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Stars</Form.Label>
-                        <Form.Control type="range" min="0" max="5" placeholder="Stars" value={reviewStars} onChange={e => setReviewStars(e.target.value)} />
+                        <Form.Control type="range" min="0" max="5" step="1" placeholder="Stars" value={reviewStars} onChange={e => setReviewStars(e.target.value)} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Submit
