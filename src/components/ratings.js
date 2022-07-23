@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { addReview } from '../../db/models/reviews'
+// import { addReview } from '../../db/models/reviews'
 
 function Ratings(props) {
     const [stars, setStars] = useState(0)

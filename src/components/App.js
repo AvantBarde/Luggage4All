@@ -7,9 +7,9 @@ import '../style/App.css';
 import { Route, Switch } from "react-router-dom";
 import Login from "./login";
 import  Products  from "./products";
-import  OrderProducts  from "./order_products";
+// import  OrderProducts  from "./order_products";
 import  Register from "./register";
- import  AddToCart from "./addToCart";
+//  import  AddToCart from "./addToCart";
 
 import UserProfile from './userProfile';
 

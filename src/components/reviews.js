@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Container, Form } from 'react-bootstrap'
-import { addReview, removeReview, updateReview  } from '../../db/models/reviews'
+// import { addReview, removeReview, updateReview  } from '../../db/models/reviews'
 
 
 function Reviews(props) {
@@ -111,7 +111,7 @@ function Reviews(props) {
             </Form>
             <p>{error}</p>
         </Container>
-        
+
   )
 }
 
