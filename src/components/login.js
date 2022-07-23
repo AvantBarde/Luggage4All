@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { Col, ButtonGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useHistory } from "react-router-dom";
-import { getUser } from '../../db/models'
+import { tokenLogin } from '../axios-services'
 
 function Login() {
 
@@ -15,19 +15,10 @@ function Login() {
     const history = useHistory()
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await getUser ({username, password})
-            if (response) {
-                localStorage.setItem('user', JSON.stringify(response))
-                history.push('/')
-            } else {
-                setError('Invalid username or password')
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
+            e.preventDefault()
+            tokenLogin(username, password, setToken)
+            setPassword("");
+            setUsername("");
     }
 
   return (

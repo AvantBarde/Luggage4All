@@ -54,6 +54,7 @@ export async function getSingleProduct(id) {
   } catch (err) {
     console.error(err);
   }
+}
 
 export async function reqHeaders(token) {
   return (token ? 
@@ -66,9 +67,9 @@ export async function reqHeaders(token) {
     } )
   }
 
-export async function tokenLogin( method, username, password, setToken) {
+export async function tokenLogin( username, password, setToken) {
   fetch(`api/users/login`, {
-    method: method ? method.toUpperCase() : "GET",
+    method: "POST",
     headers : {
       "Content-Type" : "application/json"
     },
@@ -88,9 +89,9 @@ export async function tokenLogin( method, username, password, setToken) {
 }
 
 
-export async function tokenRegister( method, username, password, setToken) {
+export async function tokenRegister( username, password, setToken) {
   fetch(`api/users/register`, {
-    method: method ? method.toUpperCase() : "GET",
+    method: "POST",
     headers : {
       "Content-Type" : "application/json"
     },

@@ -15,7 +15,7 @@ function Register() {
         e.preventDefault()
 
             if(password===confirmPassword){
-                tokenAuth(userName, password, setToken)
+                tokenRegister(userName, password, setToken)
                 setPassword("");
                 setUsername("");
                 setConfirmPassword("");
