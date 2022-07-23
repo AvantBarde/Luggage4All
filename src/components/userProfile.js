@@ -1,7 +1,6 @@
 import React, { useState, useHistory, useParams} from 'react'
 import { useEffect } from 'react'
-import { Container, Form } from 'react-bootstrap'
-import { getUser } from '../../db/models/user'
+import { Container, Form, Button } from 'react-bootstrap'
 import { updateUser } from '../../db/models/user'
 
 

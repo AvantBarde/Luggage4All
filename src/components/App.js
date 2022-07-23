@@ -11,7 +11,6 @@ import  OrderProducts  from "./order_products";
 import  Register from "./register";
  import  AddToCart from "./addToCart";
 
- import  Home  from "./Home";
 import UserProfile from './userProfile';
 
 const App = () => {
@@ -27,6 +26,9 @@ const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [cartChange, setCartChange] = useState(0);
   const [APIHealth, setAPIHealth] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
 
  
   useEffect(() => {
@@ -58,10 +60,10 @@ const App = () => {
         <UserProfile token = {token} setToken = {setToken} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
       </Route>
       <Route exact path = "/register">
-        <Register token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+        <Register token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
       </Route>
       <Route exact path = "/login">
-        <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn = {setSignedIn} />
+        <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
       </Route>
 
   
