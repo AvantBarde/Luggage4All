@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../db/models");
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;  
+const { adminRequired } = require("./utils");
 
 // Create a new user. Require username and password, and hash password before saving user to DB. Require all passwords to be at least 8 characters long.
 usersRouter.post("/", async (req, res, next) => {
@@ -71,5 +72,72 @@ usersRouter.get("/me", async (req, res, next) => {
     }
     }
 );
+
+// update user admin rights
+usersRouter.patch("/:userId", adminRequired, async (req, res, next) => {
+    const { userId } = req.params;
+    const { isAdmin } = req.body;
+    if (!userId || !isAdmin) {
+        res.status(400).send("Missing required fields");
+    } else {
+        try {
+        const user = await User.updateUser(userId, isAdmin);
+        res.send(user);
+        } catch (error) {
+        next(error);
+        }
+    }
+    }
+);
+
+// delete user from database, requires admin
+usersRouter.delete("/:userId", adminRequired, async (req, res, next) => {
+    const { userId } = req.params;
+    if (!userId) {
+        res.status(400).send("Missing required fields");
+    } else {
+        try {
+        const user = await User.deleteUser(userId);
+        res.send(user);
+        } catch (error) {
+        next(error);
+        }
+    }
+    }
+);
+
+// admin get all user info
+
+usersRouter.get("/", adminRequired, async (req, res, next) => {
+    try {
+    const users = await User.getAllUsers();
+    res.send(users);
+    } catch (error) {
+    next(error);
+    }
+    }
+);
+
+// updateuser(user)
+usersRouter.patch("/:userId", adminRequired, async (req, res, next) => {
+    const { userId } = req.params;
+    const { username, password, firstName, lastName, email } = req.body;
+    if (!userId || !username || !password || !firstName || !lastName || !email) {
+        res.status(400).send("Missing required fields");
+    } else {
+        try {
+        const user = await User.updateUser(userId, username, password, firstName, lastName, email);
+        res.send(user);
+        } catch (error) {
+        next(error);
+        }
+    }
+    }
+);
+
+
+
+
+
 
 module.exports = usersRouter;
