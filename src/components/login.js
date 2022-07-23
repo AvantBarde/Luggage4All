@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/Button'
 import { Col, ButtonGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useHistory } from "react-router-dom";
-import { getUser } from '../../db/models'
+import { tokenAuth } from '../axios-services'
+
 
 function Login() {
 
@@ -13,11 +14,12 @@ function Login() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const history = useHistory()
+    const [token, setToken] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await getUser ({username, password})
+            const response = await tokenAuth ({username, password})
             if (response) {
                 localStorage.setItem('user', JSON.stringify(response))
                 history.push('/')

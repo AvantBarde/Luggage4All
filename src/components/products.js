@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Card, Container } from 'react-bootstrap'
 import { getProducts } from '../../db/models/products'
-<<<<<<< HEAD
-import { ProductCard } from './product_card'
-=======
 import { getAllProducts } from '../axios-services'
-import { ProductCard } from './ProductCard'
->>>>>>> 2f01cfe21d37bc898dfc51b111d1b3b7851e0dc1
+import  ProductCard  from './productCard'
 
 
 function Products() {

@@ -10,9 +10,9 @@ import Products from "./products";
 import OrderProducts from "./order_products";
 import Register from "./register";
 import AddToCart from "./addToCart";
-import Home from "./Home";
+// import Home from "./Home";
 import UserProfile from "./userProfile";
-import ProductCard from "./ProductCard";
+import ProductCard from "./productCard";
 
 const App = () => {
   const localStorageToken = localStorage.getItem('jwt');
