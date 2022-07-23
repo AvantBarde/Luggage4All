@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { addProductToCart } from '../../db/models/cart'
 import { useHistory } from "react-router-dom";
@@ -12,7 +12,7 @@ function AddToCart(props) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await addProductToCart (props.userId, props.productId, props.quantity)
+            const response = await addProductToCart(props.userId, props.productId, props.quantity)
             if (response) {
                 history.push('/cart')
             } else {
