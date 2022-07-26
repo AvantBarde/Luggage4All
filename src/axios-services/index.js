@@ -94,11 +94,11 @@ export async function reqHeaders(token) {
       };
 }
 
-export async function tokenLogin(method, username, password, setToken) {
+export async function tokenLogin( username, password, setToken) {
   fetch(`api/users/login`, {
-    method: method ? method.toUpperCase() : "GET",
-    headers: {
-      "Content-Type": "application/json",
+    method: "POST",
+    headers : {
+      "Content-Type" : "application/json"
     },
     body: JSON.stringify({
       user: {
@@ -116,11 +116,12 @@ export async function tokenLogin(method, username, password, setToken) {
     .catch(console.error);
 }
 
-export async function tokenRegister(method, username, password, setToken) {
+
+export async function tokenRegister( username, password, setToken) {
   fetch(`api/users/register`, {
-    method: method ? method.toUpperCase() : "GET",
-    headers: {
-      "Content-Type": "application/json",
+    method: "POST",
+    headers : {
+      "Content-Type" : "application/json"
     },
     body: JSON.stringify({
       user: {

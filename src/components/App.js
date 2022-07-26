@@ -29,6 +29,8 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
+  const [error, setError] = useState(false);
+
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -59,7 +61,7 @@ const App = () => {
         <UserProfile token = {token} setToken = {setToken} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
       </Route>
       <Route exact path = "/register">
-        <Register token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
+      <Register token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} error = {error} setError = {setError} />
       </Route>
       <Route exact path = "/login">
         <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
