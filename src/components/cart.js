@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Card, Container } from 'react-bootstrap'
-import { getCart } from '../../db/models/cart'
+// import { getCart } from '../../db/models/cart'
 
 
 function Cart(props) {

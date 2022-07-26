@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Button, Form, Container, ButtonGroup  } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap';
+import { confirmPassword, tokenAuth} from '../axios-services/'
 
 
 function Register() {
@@ -9,13 +10,15 @@ function Register() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [token, setToken] = useState('')
     const history = useHistory()
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
             if(password===confirmPassword){
-                tokenAuth(userName, password, setToken)
+                tokenAuth(username, password, setToken)
                 setPassword("");
                 setUsername("");
                 setConfirmPassword("");
@@ -25,6 +28,7 @@ function Register() {
             setUsername("");
             setConfirmPassword("");
     }
+
 
 
 

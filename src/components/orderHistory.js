@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
-import { getOrders, getOrdersByUser } from '../../db/models/orders'
+// import { getOrders, getOrdersByUser } from '../../db/models/orders'
 
 
 function OrderHistory(props) {
