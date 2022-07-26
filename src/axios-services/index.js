@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
@@ -48,7 +48,7 @@ export function addProductToCart(userId, productId) {
 
 export async function getAPIHealth() {
   try {
-    const { data } = await axios.get('/api/health');
+    const { data } = await axios.get("/api/health");
     return data;
   } catch (err) {
     console.error(err);
@@ -67,13 +67,12 @@ export async function getProductCard(id) {
 
 export async function getAllProducts() {
   try {
-    const { data: products } = await axios.get('/api/products');
+    const { data: products } = await axios.get("/api/products");
     return products;
   } catch (err) {
     console.error(err);
   }
 }
-
 
 export async function getSingleProduct(id) {
   try {
@@ -85,15 +84,15 @@ export async function getSingleProduct(id) {
 }
 
 export async function reqHeaders(token) {
-  return (token ? 
-    {
-        "Content-Type" : "application/json",
-        "Authorization" : `Bearer ${token}`
-    } :
-    {
-        "Content-Type" : "application/json"
-    } )
-  }
+  return token
+    ? {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    : {
+        "Content-Type": "application/json",
+      };
+}
 
 export async function tokenLogin( username, password, setToken) {
   fetch(`api/users/login`, {
@@ -104,11 +103,12 @@ export async function tokenLogin( username, password, setToken) {
     body: JSON.stringify({
       user: {
         username: username,
-        password: password
-      }
-    })
-  }).then(response => response.json())
-    .then(result => {
+        password: password,
+      },
+    }),
+  })
+    .then((response) => response.json())
+    .then((result) => {
       setToken(result.data.token);
       localStorage.setItem("jwt", result.data.token);
       alert(result.data.message);
@@ -126,11 +126,12 @@ export async function tokenRegister( username, password, setToken) {
     body: JSON.stringify({
       user: {
         username: username,
-        password: password
-      }
-    })
-  }).then(response => response.json())
-    .then(result => {
+        password: password,
+      },
+    }),
+  })
+    .then((response) => response.json())
+    .then((result) => {
       setToken(result.data.token);
       localStorage.setItem("jwt", result.data.token);
       alert(result.data.message);
