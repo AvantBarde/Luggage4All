@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import { getCart } from '../../db/models/cart'
+// import { getCart } from '../../db/models/cart'
 
 
 function GetCart(userId) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {  Container } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 
-import { getAllProducts } from '../axios-services';
+import { getAllProducts, getProducts } from "../axios-services"
 import  ProductCard from './productCard';
 
 

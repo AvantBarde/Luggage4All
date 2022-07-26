@@ -1,5 +1,5 @@
 import React from 'react'
-import { deleteProductFromCart } from '../../db/models/cart'
+// import { deleteProductFromCart } from '../../db/models/cart'
 import { Button } from 'react-bootstrap'
 
 function DeleteFromCart(props) {

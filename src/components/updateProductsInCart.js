@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import { updateProductsInCart } from '../../db/models/cart'
+// import { updateProductsInCart } from '../../db/models/cart'
 
 
 function UpdateProductsInCart(props) {
