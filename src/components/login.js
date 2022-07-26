@@ -5,13 +5,9 @@ import Button from 'react-bootstrap/Button'
 import { Col, ButtonGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useHistory } from "react-router-dom";
-<<<<<<< HEAD
-import { tokenAuth } from '../axios-services'
-
-=======
 // import { getUser } from '../../db/models'
-import { getUser } from "../axios-services/" 
->>>>>>> 7ead7a8d258419caf079f1ac28c7ead997182c50
+import { getUser } from "../axios-services/"
+import { tokenAuth } from '../axios-services'
 
 function Login() {
 
