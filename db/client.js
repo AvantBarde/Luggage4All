@@ -24,4 +24,4 @@ if (process.env.CI) {
   client = new Client(DB_URL);
 }
 
-module.exports = client;
+export default client;

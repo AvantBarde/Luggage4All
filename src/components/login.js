@@ -5,30 +5,21 @@ import Button from 'react-bootstrap/Button'
 import { Col, ButtonGroup } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useHistory } from "react-router-dom";
-// import { getUser } from '../../db/models'
-import { getUser } from "../axios-services/" 
+import { tokenLogin } from '../axios-services'
 
-function Login() {
+function Login({username, password, setPassword, setUsername}) {
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    
+    
     const [error, setError] = useState('')
     const history = useHistory()
+    const [token, setToken] = useState('');
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const response = await getUser ({username, password})
-            if (response) {
-                localStorage.setItem('user', JSON.stringify(response))
-                history.push('/')
-            } else {
-                setError('Invalid username or password')
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
+            e.preventDefault()
+            tokenLogin(username, password, setToken)
+            setPassword("");
+            setUsername("");
     }
 
   return (
