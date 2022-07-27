@@ -66,8 +66,6 @@ const App = () => {
       <Route exact path = "/login">
         <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
       </Route>
-
-  
     </Switch>
     
     </>
