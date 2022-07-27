@@ -7,7 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useHistory } from "react-router-dom";
 import { tokenLogin } from '../axios-services'
 
-function Login({setToken, username, password}) {
+function Login({setToken, username, password, token}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
