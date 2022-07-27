@@ -7,13 +7,6 @@ import { tokenRegister } from '../axios-services'
 
 function Register({username, password, setUsername, setPassword, setToken, confirmPassword, setConfirmPassword, error, setError}) {
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
-    const [token, setToken] = useState('')
-    const history = useHistory()
-    const [confirmPassword, setConfirmPassword] = useState('')
-
     const handleSubmit = async (e) => {
         e.preventDefault()
 
