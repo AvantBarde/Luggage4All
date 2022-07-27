@@ -95,7 +95,7 @@ async function populateInitialData() {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
-    const usersToCreate = await createUser(
+    const usersToCreate = await users.createUser(
       {
         username: "albert",
         password: "bertie99",
