@@ -13,6 +13,7 @@ import  Register from "./register";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import UserProfile from './userProfile';
+import Nav from './Navbar';
 
 const App = () => {
   const localStorageToken = localStorage.getItem('jwt');
@@ -53,8 +54,9 @@ const App = () => {
       <h1>Hello, World!</h1>
       <p>API Status: {APIHealth}</p>
     </div>
-    
+    <Nav/>
     <Switch>
+      
       <Route exact path = "/products">
         <Products token = {token} setToken = {setToken} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
       </Route>
