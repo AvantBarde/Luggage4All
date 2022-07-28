@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import LogoutButton from "./logoutButton";
 
 const Nav = ({ token }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,21 +32,21 @@ const Nav = ({ token }) => {
             
             {!isLoggedIn ? (
                 <li>
-                    <Link to="/">Sign Up</Link>
+                    <Link to="/register">Sign Up</Link>
                 </li>
             ) : (
                 <li>
-                    <Link to="/">Profile</Link>
+                    <Link to="/users/:userId">Profile</Link>
                 </li>
             )}
             
             {!isLoggedIn ? (
                 <li>
-                    <Link to="/">Log In</Link>
+                    <Link to="/login">Log In</Link>
                 </li>
             ) : (
                 <li>
-                    <Link to="/">Sign Out</Link>
+                    <LogoutButton />
                 </li>
             )}
         </div>
