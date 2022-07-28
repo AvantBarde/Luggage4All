@@ -27,7 +27,6 @@ async function addProductToOrder({ orderId, productId, price, quantity }) {
   }
 }
 
-
 async function updateOrderProduct({ id, price, quantity }) {
   try {
     const result = await client.query(
@@ -40,6 +39,8 @@ async function updateOrderProduct({ id, price, quantity }) {
     throw error;
   }
 }
+
+
 
 
 async function destroyOrderProduct(id) {

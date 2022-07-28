@@ -1,5 +1,6 @@
 // Connect to DB
 const { Client } = require('pg');
+require('dotenv').config();
 
 // change the DB_NAME string to whatever your group decides on
 const DB_NAME = 'grace_shopper';
@@ -23,4 +24,4 @@ if (process.env.CI) {
   client = new Client(DB_URL);
 }
 
-export default client;
+module.exports = client;
