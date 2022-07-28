@@ -1,19 +1,31 @@
-const client = require("./client");
-const { createUser } = require('./models')
+const {
+  // declare your model imports here
+  // for example, User
+  Products,
+  Orders,
+  Users,
+  Order_Products
+} = require('./models');
+
+const client = require('./client.js');
+
 
 async function buildTables() {
   try {
     client.connect();
-    
+    console.log("Starting to build tables..");
     // drop tables in correct order
     await client.query(`
-      DROP TABLE IF EXISTS cart;
-      DROP TABLE IF EXISTS reviews;
-      DROP TABLE IF EXISTS order_products;
-      DROP TABLE IF EXISTS orders;
-      DROP TABLE IF EXISTS products;
-      DROP TABLE IF EXISTS users;
-    
+      DROP TABLE IF EXISTS cart CASCADE;
+      DROP TABLE IF EXISTS reviews CASCADE;
+      DROP TABLE IF EXISTS order_products CASCADE;
+      DROP TABLE IF EXISTS orders CASCADE;
+      DROP TABLE IF EXISTS products CASCADE;
+      DROP TABLE IF EXISTS users CASCADE;
+      `);
+    // build tables in correct order
+    console.log("creating user tables..");
+    await client.query(`
       CREATE TABLE users(
         id SERIAL PRIMARY KEY,
         firstName varchar(255) NOT NULL,
@@ -22,46 +34,57 @@ async function buildTables() {
         "imageURL" TEXT DEFAULT 'https://imgur.com/a/PGDVLp1',
         username varchar(255) UNIQUE NOT NULL,
         password varchar(255) UNIQUE NOT NULL,
-        isAdmin BOOLEAN NOT NULL DEFAULT false
-      );
+        "isAdmin" BOOLEAN NOT NULL DEFAULT false
+      ) 
+    `);
 
-    
+    console.log('creating products tables...')
+    await client.query(`
         CREATE TABLE products(
           id SERIAL PRIMARY KEY, 
           name varchar(255) NOT NULL,
           description varchar(255) NOT NULL,
           price INTEGER NOT NULL,
-          imageURL TEXT DEFAULT "https://imgur.com/a/lRObdTa",
-          inStock BOOLEAN NOT NULL DEFAULT false,
+          "imageURL" TEXT DEFAULT 'https://imgur.com/a/lRObdTa',
+          "inStock" BOOLEAN NOT NULL DEFAULT false,
           category varchar(255) NOT NULL
-        );
-    
+        )
+    `);
+
+    console.log('creating orders tables...');
+    await client.query(`
         CREATE TABLE orders(
           id SERIAL PRIMARY KEY,
-          status varchar(255) DEFAULT "created",
-          userId INTEGER REFERENCES users,
-          datePlaced TIMESTAMP DEFAULT NOW()
-        );
+          status varchar(255) DEFAULT 'created',
+          "userId" INTEGER REFERENCES users(id),
+          "datePlaced" TIMESTAMP DEFAULT NOW()
+        )
+    `);
 
-   
+    console.log('creating order_products tables...');
+    await client.query(`
         CREATE TABLE order_products(
           id SERIAL PRIMARY KEY,
-          productId INTEGER REFERENCES products.id,
-          orderId INTEGER REFERENCES orders.id,
+          "productId" INTEGER REFERENCES products(id),
+          "orderId" INTEGER REFERENCES orders(id),
           price INTEGER NOT NULL,
           quantity INTEGER DEFAULT 0
-        );
+        )
+    `);
 
-   
+    console.log('creating cart tables...');
+    await client.query(`
      CREATE TABLE cart(
       id SERIAL PRIMARY KEY,
-      userId INTEGER REFERENCES users.id,
-      productId INTEGER REFERENCES products.id,
+      "userId" INTEGER REFERENCES users(id),
+      "productId" INTEGER REFERENCES products(id),
       price INTEGER NOT NULL,
       quantity INTEGER DEFAULT 0
-    );
+    )
+    `);
 
-   
+    console.log('creating reviews tables...');
+     await client.query(`
      CREATE TABLE reviews(
       id SERIAL PRIMARY KEY,
       title varchar(255) NOT NULL,
@@ -71,9 +94,9 @@ async function buildTables() {
         stars >= 1
         AND stars <= 5
       ),
-      productId INTEGER REFERENCES products.id,
-      userId INTEGER REFERENCES users.id,
-      dateCreated TIMESTAMP DEFAULT NOW()
+      "productId" INTEGER REFERENCES products(id),
+      "userId" INTEGER REFERENCES users(id),
+      "dateCreated" TIMESTAMP DEFAULT NOW()
     )
     `);
       
@@ -91,21 +114,33 @@ async function populateInitialData() {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
-    const usersToCreate = await users.createUser(
+    const user1 = await Users.createUser(
       {
+        firstName: 'Albert',
+        lastName: 'Bertie',
         username: "albert",
         password: "bertie99",
         email: "bertie99@hotmail.com",
-      },
-      { username: "sandra", password: "sandra123", email: "sandra321@aol.com" },
+      })
+    const user2 = await Users.createUser(
+      { 
+      firstName: 'Albert',
+      lastName: 'Bertie',
+      username: "sandra", 
+      password: "sandra123", 
+      email: "sandra321@aol.com" }
+    )
+    const user3 = await Users.createUser(
       {
+        firstName: 'Albert',
+        lastName: 'Bertie',
         username: "glamgal",
         password: "glamgal123",
         email: "glamgal321@gmail.com",
       }
     );
 
-    const productsToCreate = await products.createProduct(
+    const product1 = await Products.createProduct(
       {
         name: "Twill Duffle Bag",
         description: "A duffle bag made of twill.",
@@ -113,7 +148,8 @@ async function populateInitialData() {
         imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
         inStock: true,
         category: "travel",
-      },
+      })
+      const product2 = await Products.createProduct(
       {
         name: "Rugged Wallet",
         description: "A rugged wallet made of leather.",
@@ -121,34 +157,36 @@ async function populateInitialData() {
         imageURL: "https://filson-canto.imgix.net/fmkjhfb4et1udejmtie9lm4531/CIA-Mo1mP9IVCjyTzK_WCDFz9Yg/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
         inStock: true,
         category: "accessories",
-      },
-      {
-        name: "Nylon Backpack",
-        description: "A backpack made of nylon.",
-        price: 150,
-        imageURL: "https://filson-canto.imgix.net/j80aek5got1bp875cieia40h5c/i2vME2dJT-dLhVLT2oIPnHS42HY/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
-        inStock: true,
-        category: "school",
-      },
-      {
-        name: "Leather Briefcase",
-        description: "A leather briefcase.",
-        price: 250,
-        imageURL: "https://cdn.shopify.com/s/files/1/1301/7071/products/maverick-co-manhattan-leather-briefcase-navy-tiger-orange-grey-1_1800x1800.jpg?v=1630580387",
-        inStock: true,
-        category: "work",
-      },
-      {
-        name: "Cloth Messenger Bag",
-        description: "A messenger bag made of cloth.",
-        price: 100,
-        imageURL: "https://herschel.com/content/dam/herschel/products/10664/10664-00919-OS_01.jpg.sthumbnails.1000.1250.jpg",
-        inStock: true,
-        category: "work",
-      }
-    );
+      })
+      const product3 = await Products.createProduct(
+        {
+          name: "Nylon Backpack",
+          description: "A backpack made of nylon.",
+          price: 150,
+          imageURL: "https://filson-canto.imgix.net/j80aek5got1bp875cieia40h5c/i2vME2dJT-dLhVLT2oIPnHS42HY/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
+          inStock: true,
+          category: "school",
+        })
+      const product4 = await Products.createProduct(
+        {
+          name: "Leather Briefcase",
+          description: "A leather briefcase.",
+          price: 250,
+          imageURL: "https://cdn.shopify.com/s/files/1/1301/7071/products/maverick-co-manhattan-leather-briefcase-navy-tiger-orange-grey-1_1800x1800.jpg?v=1630580387",
+          inStock: true,
+          category: "work",
+        })
+      const product5 = await Products.createProduct(
+        {
+          name: "Cloth Messenger Bag",
+          description: "A messenger bag made of cloth.",
+          price: 100,
+          imageURL: "https://herschel.com/content/dam/herschel/products/10664/10664-00919-OS_01.jpg.sthumbnails.1000.1250.jpg",
+          inStock: true,
+          category: "work",
+        });
 
-    const ordersToCreate = await orders.createOrder(
+    const ordersToCreate = await Orders.createOrder(
       {
         status: "created",
         userId: 1,
@@ -166,7 +204,7 @@ async function populateInitialData() {
       }
     );
 
-    const orderProductsToCreate = await orderProducts.createOrderProduct(
+    const orderProductsToCreate = await Order_Products.createOrderProduct(
       {
         productId: 1,
         orderId: 1,

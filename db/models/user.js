@@ -20,19 +20,18 @@ async function getAllUsers() {
 async function createUser({ firstName, lastName, email, username, password }) {
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const { rows } = await client.query(
+    const { rows: [user] } = await client.query(
       `
     INSERT INTO users(firstName, lastName, username, password, email)
     VALUES ($1, $2, $3, $4, $5)
-    ON CONFLICT (username, email) DO NOTHING
+    ON CONFLICT DO NOTHING
     RETURNING *;
     `,
-      [firstName, lastName, username, password, hashedPassword, email]
+      [firstName, lastName, username, email, hashedPassword]
     );
-    delete user.password;
     return rows;
   } catch (error) {
-    console.error(error);
+    console.error("error with creating the user. check createUser()");
     throw error;
   }
 }
@@ -52,7 +51,7 @@ async function getUser({ username, password }) {
     delete user.password;
     return user;
   } catch (error) {
-    console.error(error);
+    console.error("error getting the user. Check getUserByUsername()");
     throw error;
   }
 }

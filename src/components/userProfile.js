@@ -2,7 +2,7 @@ import React, { useState, useHistory, useParams} from 'react'
 import { useEffect } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 // import { updateUser } from '../../db/models/user'
-import { getUser, updateUser } from "../axios-services/index"
+import { getUser, updateUser } from "../axios-services/index" 
 
 function UserProfile() {
   const { userId } = useParams();
