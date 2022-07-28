@@ -29,7 +29,7 @@ async function createUser({ firstName, lastName, email, username, password }) {
     `,
       [firstName, lastName, username, email, hashedPassword]
     );
-    return rows;
+    return user;
   } catch (error) {
     console.error("error with creating the user. check createUser()");
     throw error;
