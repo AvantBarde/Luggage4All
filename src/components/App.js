@@ -10,6 +10,7 @@ import  Products  from "./products";
 // import  OrderProducts  from "./order_products";
 import  Register from "./register";
 //  import  AddToCart from "./addToCart";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import UserProfile from './userProfile';
 
