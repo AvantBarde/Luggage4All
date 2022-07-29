@@ -74,6 +74,9 @@ const App = () => {
           <Cart token = {token} setToken = {setToken} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} cartChange = {cartChange} setCartChange = {setCartChange}/>
         </Cart>
       </Route>
+      <Route exact path = "/profile">
+        <UserProfile token = {token} setToken = {setToken} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
+      </Route>
     </Switch>
     
     </>
