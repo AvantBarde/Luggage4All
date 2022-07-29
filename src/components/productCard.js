@@ -3,6 +3,7 @@ import { Button, Card } from 'react-bootstrap'
 import { addProductToCart } from '../axios-services'
 import { useHistory } from "react-router-dom";
 import AddToCart from './addToCart';
+import Ratings from './ratings';
 
 
 function ProductCard(props) {
@@ -22,6 +23,9 @@ function ProductCard(props) {
                 <Card.Text>{category}</Card.Text>
                 <AddToCart userId={props.userId} productId={props.productId} />
             </Card.Body>
+            <Card.Footer>
+              <Ratings props={[...props]}></Ratings>
+            </Card.Footer>
         </Card>
   )
 }

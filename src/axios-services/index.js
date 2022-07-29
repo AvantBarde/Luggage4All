@@ -167,3 +167,27 @@ export async function deleteProductFromCart(userId, productId) {
   }
 }
 
+// get revuews for a product
+export async function getReviews(productId) {
+  try {
+    const { data: reviews } = await axios.get(`/api/products/${productId}/reviews`);
+    return reviews;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// add a review for a product
+export async function addReview(productId, userId, rating, review) {
+  try {
+    const { data: reviews } = await axios.post(`/api/products/${productId}/reviews`, {
+      userId,
+      rating,
+      review
+    });
+    return reviews;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
