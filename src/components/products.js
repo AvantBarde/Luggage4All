@@ -20,11 +20,58 @@ function Products() {
             name: "Twill Duffle Bag",
             description: "A duffle bag made of twill.",
             price: 100,
+            imageURL: "https://cdn.shopify.com/s/files/1/1301/7071/products/maverick-co-manhattan-leather-briefcase-navy-tiger-orange-grey-1_1800x1800.jpg?v=1630580387",
+            inStock: true,
+            category: "travel",
+          },
+          {
+            name: "Twill Duffle Bag",
+            description: "A duffle bag made of twill.",
+            price: 100,
             imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
             inStock: true,
             category: "travel",
           },
           {
+            name: "Twill Duffle Bag",
+            description: "A duffle bag made of twill.",
+            price: 100,
+            imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
+            inStock: true,
+            category: "travel",
+          },
+          {
+            name: "Twill Duffle Bag",
+            description: "A duffle bag made of twill.",
+            price: 100,
+            imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
+            inStock: true,
+            category: "travel",
+          },
+          {
+            name: "Twill Duffle Bag",
+            description: "A duffle bag made of twill.",
+            price: 100,
+            imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
+            inStock: true,
+            category: "travel",
+          },
+          {
+            name: "Twill Duffle Bag",
+            description: "A duffle bag made of twill.",
+            price: 100,
+            imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
+            inStock: true,
+            category: "travel",
+          },
+          {
+            name: "Twill Duffle Bag",
+            description: "A duffle bag made of twill.",
+            price: 100,
+            imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
+            inStock: true,
+            category: "travel",
+          },{
             name: "Twill Duffle Bag",
             description: "A duffle bag made of twill.",
             price: 100,
@@ -60,8 +107,10 @@ function Products() {
 
 
   return (
+    <>
+    <center><h1>Products</h1></center>
     <Container className='bg-light d-flex flex-row flex-wrap' >
-        <center><h1>Products</h1></center>
+        
         {Array.isArray(testProdcuts) ? testProdcuts.map(product => (
             <ProductCard key={product.productId} 
             name={product.name}
@@ -74,6 +123,7 @@ function Products() {
         )):
         null}
     </Container>
+    </>
   )
 }
 

@@ -13,7 +13,7 @@ function ProductCard(props) {
     
 
   return (
-   <Card style={{ width: '18rem' }}>
+   <Card className='my-3 mx-3' style={{ width: '18rem' }}>
          <Card.Img variant="top" src={imageURL} />
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
