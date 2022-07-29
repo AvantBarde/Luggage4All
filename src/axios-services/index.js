@@ -146,3 +146,24 @@ export async function tokenAuth(token) {
     }
   })
 }
+
+// get the users cart
+export async function getCart(userId) {
+  try {
+    const { data: cart } = await axios.get(`/api/users/${userId}/cart`);
+    return cart;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// delete a product from the users cart
+export async function deleteProductFromCart(userId, productId) {
+  try {
+    const { data: cart } = await axios.delete(`/api/users/${userId}/cart/${productId}`);
+    return cart;
+  } catch (err) {
+    console.error(err);
+  }
+}
+

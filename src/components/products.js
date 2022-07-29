@@ -33,9 +33,9 @@ function Products() {
 
 
   return (
-    <Container>
-        <h1>Products</h1>
-        {products.map(product => (
+    <Container className='bg-light' >
+        <center><h1>Products</h1></center>
+        {Array.isArray(products) ? products.map(product => (
             <ProductCard key={product.productId} 
             name={product.name}
             description={product.description}
@@ -44,7 +44,8 @@ function Products() {
             inStock={product.inStock}
             category={product.category}
              />
-        ))}
+        )):
+        null}
     </Container>
   )
 }

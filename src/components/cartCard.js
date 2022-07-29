@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap'
 import DeleteFromCart from './deleteFromCart'
 
 
-function CartCard() {
+function CartCard(props) {
     const { name, description, price, imageURL, inStock, category } = props
     
 

@@ -11,7 +11,7 @@ import  Products  from "./products";
 import  Register from "./register";
 //  import  AddToCart from "./addToCart";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Cart from "./cart";
 import UserProfile from './userProfile';
 import Nav from './Navbar';
 
@@ -68,6 +68,11 @@ const App = () => {
       </Route>
       <Route exact path = "/login">
         <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
+      </Route>
+      <Route exact path = "/cart">
+        <Cart>
+          <Cart token = {token} setToken = {setToken} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} cartChange = {cartChange} setCartChange = {setCartChange}/>
+        </Cart>
       </Route>
     </Switch>
     
