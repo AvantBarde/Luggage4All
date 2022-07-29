@@ -47,12 +47,12 @@ function Ratings(props) {
 
     return (
         <Container>
-            {(stars === 0) ? <div>No ratings yet</div> : <div>{stars}</div>}
+            {/* {(stars === 0) ? <div>No ratings yet</div> : <div>{stars}</div>}
             {(stars === 1) ? <div>One star</div> : <div>{stars} stars</div>}
             {(stars === 2) ? <div>Two stars</div> : <div>{stars} stars</div>}
             {(stars === 3) ? <div>Three stars</div> : <div>{stars} stars</div>}
             {(stars === 4) ? <div>Four stars</div> : <div>{stars} stars</div>}
-            {(stars === 5) ? <div>Five stars</div> : <div>{stars} stars</div>}
+            {(stars === 5) ? <div>Five stars</div> : <div>{stars} stars</div>} */}
             {error && <div>{error}</div>}
             <Container>
                 <Form onSubmit={submitReview}>

@@ -7,13 +7,13 @@ import Ratings from './ratings';
 
 
 function ProductCard(props) {
-    const { name, description, price, imageURL, inStock, category } = props
+    const { name, description, price, imageURL, inStock, category, productId } = props
 
 
     
 
   return (
-   <Card>
+   <Card style={{ width: '18rem' }}>
          <Card.Img variant="top" src={imageURL} />
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
@@ -24,7 +24,7 @@ function ProductCard(props) {
                 <AddToCart userId={props.userId} productId={props.productId} />
             </Card.Body>
             <Card.Footer>
-              <Ratings props={[...props]}></Ratings>
+              <Ratings productId={productId} ></Ratings>
             </Card.Footer>
         </Card>
   )
