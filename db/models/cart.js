@@ -1,19 +1,19 @@
 const client = require("../client");
 
 // sql query to add items to cart
-const addProductToCart = async (userId, productId, quantity) => {
+const addProductToCart = async (userId, productId, quantity, price) => {
     try {
         const { rows: cart } = await client.query(
         `
-        INSERT INTO cart ("userId", "productId", quantity)
-        VALUES ($1, $2, $3)
+        INSERT INTO cart ("userId")
+        VALUES ($1)
         RETURNING *;
         `,
-        [userId, productId, quantity]
+        [userId]
         );
         return cart;
     } catch (error) {
-        console.error(error);
+        console.error("error adding product to cart", "check addProductToCart()");
         throw error;
     }
     }

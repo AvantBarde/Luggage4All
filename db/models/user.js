@@ -20,16 +20,17 @@ async function getAllUsers() {
 async function createUser({ firstName, lastName, email, username, password }) {
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const { rows: [user] } = await client.query(
+    const { rows: [user], } = await client.query(
       `
-    INSERT INTO users(firstName, lastName, username, password, email)
+    INSERT INTO users
+    ("firstName", "lastName", username, email, password)
     VALUES ($1, $2, $3, $4, $5)
     ON CONFLICT DO NOTHING
     RETURNING *;
     `,
       [firstName, lastName, username, email, hashedPassword]
     );
-    return rows;
+    return user;
   } catch (error) {
     console.error("error with creating the user. check createUser()");
     throw error;

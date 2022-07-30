@@ -11,13 +11,13 @@ category
 }){
     try {
         const { rows } = await client.query(`
-            INSERT INTO products(name, description, price, imageURL, inStock, category)
+            INSERT INTO products(name, description, price, "imageURL", "inStock", category)
             VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *;
         `, [name, description, price, imageURL, inStock, category])
         return rows;
     } catch (error) {
-        console.error(error)
+        console.error("error in createProduct")
         throw error;
     }
 }
@@ -32,7 +32,7 @@ async function getProductById(id){
         `, [id] )
         return product;
     } catch (error) {
-        console.error(error)
+        console.error("error in getProductById")
         throw error;
     }
 }
@@ -46,7 +46,7 @@ async function getAllProducts(){
         `)
         return products;
     } catch (error) {
-        console.error(error)
+        console.error("error in getAllProducts")
         throw error;
     }
 }
@@ -60,7 +60,7 @@ async function destroyProduct(id){
         `, [id] )
         return product;
     } catch (error) {
-        console.error(error)
+        console.error("error in destroyProduct")
         throw error;
     }
 }

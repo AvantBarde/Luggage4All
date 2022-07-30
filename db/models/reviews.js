@@ -1,11 +1,11 @@
-const client = requires('../db/client');
+const client = require('../client');
 
 // sql query to add reviews to the reviews table
-const addReview = async ({ title, content, stars, productId, userId }) => {
+const addReview = async ({ title, content, stars, productId, userId, dateCreated }) => {
   try {
     const result = await client.query(
-      `INSERT INTO reviews (title, content, stars, productId, userId) VALUES ($1, $2, $3, $4, $5)`,
-      [title, content, stars, productId, userId]
+      `INSERT INTO reviews (title, content, stars, "productId", "userId", "dateCreated") VALUES ($1, $2, $3, $4, $5, $6)`,
+      [title, content, stars, productId, userId, dateCreated]
     );
     return result.rows[0];
   } catch (error) {
@@ -83,4 +83,4 @@ const checkIfUserHasAlreadyLeftReview = async ({ userId, productId }) => {
 
 
 
-export { addReview, removeReview, updateReview, checkIfUserHasAlreadyLeftReview, getReviewsByProductId, deleteReviewsByUserId };
+module.exports = { addReview, removeReview, updateReview, checkIfUserHasAlreadyLeftReview, getReviewsByProductId, deleteReviewsByUserId };
