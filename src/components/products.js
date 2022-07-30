@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap/lib/Tab';
 import { getAllProducts } from '../axios-services';
 import  ProductCard from './productCard';
 
