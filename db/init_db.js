@@ -6,7 +6,7 @@ const {
   Users,
   Order_Products,
   Reviews,
-  Cart,
+  Admins,
 } = require('./models');
 
 const client = require('./client.js');
@@ -38,6 +38,16 @@ async function buildTables() {
         password varchar(255) UNIQUE NOT NULL,
         "isAdmin" BOOLEAN NOT NULL DEFAULT false
       ) 
+    `);
+
+    console.log("creating admin tables..");
+    await client.query(`
+    CREATE TABLE admins(
+      id SERIAL PRIMARY KEY,
+      username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      isadmin BOOLEAN NOT NULL DEFAULT true
+    )
     `);
 
     console.log('creating products tables...')
@@ -116,31 +126,160 @@ async function populateInitialData() {
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
-    const user1 = await Users.createUser(
+    console.log("Creating public users...");
+    const publicUser1 = await Users.createUser(
       {
         firstName: 'Albert',
         lastName: 'Bertie',
         username: "albert",
         password: "bertie99",
         email: "bertie99@hotmail.com",
+        isAdmin: false,
       })
-    const user2 = await Users.createUser(
+    const publicUser2 = await Users.createUser(
       { 
       firstName: 'Albert',
       lastName: 'Bertie',
       username: "sandra", 
       password: "sandra123", 
-      email: "sandra321@aol.com" }
+      email: "sandra321@aol.com" ,
+      isAdmin: false,
+      }
     )
-    const user3 = await Users.createUser(
+    const publicUser3 = await Users.createUser(
       {
         firstName: 'Albert',
         lastName: 'Bertie',
         username: "glamgal",
         password: "glamgal123",
         email: "glamgal321@gmail.com",
+        isAdmin: false,
       }
     );
+
+    const publicUser4 = await Users.createUser(
+      {
+        firstName: 'John',
+        lastName: 'Doe',
+        username: "john",
+        password: "doe123",
+        email: "johndoe123@gmail.com",
+        isAdmin: false,
+      }
+    );
+
+    const publicUser5 = await Users.createUser(
+      {
+        firstName: 'Dwight',
+        lastName: 'Schrute',
+        username: "dwight",
+        password: "schrute123",
+        email: "battlestargalactica101@gmail.com",
+        isAdmin: false,
+      }
+    );
+    const publicUser6 = await Users.createUser(
+      {
+        firstName: 'Jim',
+        lastName: 'Halpert',
+        username: "tuna",
+        password: "halpert123",
+        email: "letsprankdwight123@gmail.com",
+        isAdmin: false,
+      }
+    );
+    const publicUser7 = await Users.createUser(
+      {
+        firstName: 'Pam',
+        lastName: 'Halpert',
+        username: "pam",
+        password: "halpert123",
+        email: "iloveart123@gmail.com",
+        isAdmin: false,
+      }
+    );
+    const publicUser8 = await Users.createUser(
+      {
+        firstName: 'Pam',
+        lastName: 'Halpert',
+        username: "pam",
+        password: "halpert123",
+        email: "iloveart123@gmail.com",
+        isAdmin: false,
+      }
+    );
+    
+    const publicUser9 = await Users.createUser(
+      {
+        firstName: 'Stanley',
+        lastName: 'Hudson',
+        username: "Stanley",
+        password: "hudson123",
+        email: "whatever123@gmail.com",
+        isAdmin: false,
+      }
+    );
+
+    const publicUser10 = await Users.createUser(
+      {
+        firstName: 'Andy',
+        lastName: 'Bernard',
+        username: "andythestar",
+        password: "bernard123",
+        email: "ridididoooo123@gmail.com",
+        isAdmin: false,
+      }
+    );
+
+
+    
+    
+    console.log("creating admin users...");
+
+    const adminUser1 = await Admins.createAdmin(
+      {
+        firstName: 'Jordan',
+        lastName: 'Steger',
+        username: "jordan",
+        password: "steger123",
+        email: "jordansteger123@gmail.com",
+        isAdmin: true,
+      }
+    );
+
+    const adminUser2 = await Admins.createAdmin(
+      { 
+      firstName: 'David',
+      lastName: 'Stein',
+      username: "david", 
+      password: "stein123", 
+      email: "davidsteing123@gmail.com" ,
+      isAdmin: true,
+      }
+    );
+
+    const adminUser3 = await Admins.createAdmin(
+      {
+        firstName: 'Miles',
+        lastName: 'Clark',
+        username: "miles",
+        password: "clark123",
+        email: "milesclark123@gmail.com",
+        isAdmin: true,
+      }
+    );
+    
+    const adminUser4 = await Admins.createAdmin(
+      {
+        firstName: 'Bardell',
+        lastName: 'Wilson',
+        username: "bardell",
+        password: "wilson123",
+        email: "bardellwilson123@gmail.com",
+        isAdmin: true,
+      }
+    );
+
 
     const product1 = await Products.createProduct(
       {
@@ -149,7 +288,7 @@ async function populateInitialData() {
         price: 100.00,
         imageURL: "https://filson-canto.imgix.net/cdnnn3e0st2sdaofrekh6rn866/E5To00QWyU3S3EZGsv1BcPTVslw/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
         inStock: true,
-        category: "travel",
+        category: "bags",
       })
       const product2 = await Products.createProduct(
       {
@@ -167,7 +306,7 @@ async function populateInitialData() {
           price: 150.00,
           imageURL: "https://filson-canto.imgix.net/j80aek5got1bp875cieia40h5c/i2vME2dJT-dLhVLT2oIPnHS42HY/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
           inStock: true,
-          category: "school",
+          category: "bags",
         })
       const product4 = await Products.createProduct(
         {
@@ -176,7 +315,7 @@ async function populateInitialData() {
           price: 250.00,
           imageURL: "https://cdn.shopify.com/s/files/1/1301/7071/products/maverick-co-manhattan-leather-briefcase-navy-tiger-orange-grey-1_1800x1800.jpg?v=1630580387",
           inStock: true,
-          category: "work",
+          category: "travel",
         })
       const product5 = await Products.createProduct(
         {
@@ -185,7 +324,34 @@ async function populateInitialData() {
           price: 100.00,
           imageURL: "https://herschel.com/content/dam/herschel/products/10664/10664-00919-OS_01.jpg.sthumbnails.1000.1250.jpg",
           inStock: true,
-          category: "work",
+          category: "bags",
+        });
+      const product6 = await Products.createProduct(
+        {
+          name: "Zip Tote Bag - Large ",
+          description: "A leakproof bag made for beachdays.",
+          price: 75.00,
+          imageURL: "https://herschel.com/content/dam/herschel/products/11066/11066-05293-OS_02.jpg.sthumbnails.1000.1250.jpg",
+          inStock: true,
+          category: "travel",
+        });
+      const product7 = await Products.createProduct(
+        {
+          name: "Zip Tote Bag - Large ",
+          description: "A leakproof bag made for beachdays.",
+          price: 75.00,
+          imageURL: "https://herschel.com/content/dam/herschel/products/11066/11066-05293-OS_02.jpg.sthumbnails.1000.1250.jpg",
+          inStock: true,
+          category: "travel",
+        });
+      const product8 = await Products.createProduct(
+        {
+          name: "Tech Assortment Pouch",
+          description: "A bag to rule them all. Keep all your cords, mouse, and everything else you might need organized and protected on the go.",
+          price: 50.00,
+          imageURL: "https://herschel.com/content/dam/herschel/products/10997/10997-00001-OS_02.jpg.sthumbnails.1000.1250.jpg",
+          inStock: true,
+          category: "accessories",
         });
 
     const ordersToCreate = await Orders.createOrder(
@@ -234,7 +400,8 @@ async function populateInitialData() {
         price: 250,
         quantity: 1,
       });
-
+    
+      
     const review1 = await Reviews.addReview(
       {
         title: "Great product!",

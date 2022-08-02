@@ -23,6 +23,9 @@ apiRouter.use('/orders', ordersRouter );
 const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter );
 
+const adminRouter = require('./admin');
+apiRouter.use('/admin', adminRouter );
+
 
 
 

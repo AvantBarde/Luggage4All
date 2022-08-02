@@ -115,6 +115,27 @@ export async function tokenLogin( username, password, setToken) {
     })
     .catch(console.error);
 }
+export async function adminTokenLogin( username, password, setToken) {
+  fetch(`api/admin/login`, {
+    method: "POST",
+    headers : {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+      user: {
+        username: username,
+        password: password,
+      },
+    }),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      setToken(result.data.token);
+      localStorage.setItem("jwt", result.data.token);
+      alert(result.data.message);
+    })
+    .catch(console.error);
+}
 
 
 export async function tokenRegister( username, password, setToken) {
@@ -145,4 +166,26 @@ export async function tokenAuth(token) {
       "Authorization": `Bearer ${token}`
     }
   })
+}
+
+export async function adminDeletePost( username, password, setToken) {
+  fetch(`api/admin/posts/${postId}`, {
+    method: "DELETE",
+    headers : {
+      "Content-Type" : "application/json"
+    },
+    body: JSON.stringify({
+      user: {
+        username: username,
+        password: password,
+      },
+    }),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      setToken(result.data.token);
+      localStorage.setItem("jwt", result.data.token);
+      alert(result.data.message);
+    })
+    .catch(console.error);
 }
