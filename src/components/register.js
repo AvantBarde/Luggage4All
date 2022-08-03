@@ -7,6 +7,9 @@ import { tokenRegister } from '../axios-services'
 
 function Register({username, password, setUsername, setPassword, setToken, confirmPass, setConfirmPass, setEmail, setFirstName, setLastName, seterror, email, firstName, lastName}) {
 
+    const history = useHistory();
+
+
     const reset = () => { 
         setPassword("");
         setUsername("");
@@ -22,6 +25,7 @@ function Register({username, password, setUsername, setPassword, setToken, confi
             if(password===confirmPass){
                 tokenRegister(username, password, email, firstName, lastName, setToken)
                 reset();
+                history.push('./products.js')
                 return
             } alert("Passwords must match one another")
             reset();
