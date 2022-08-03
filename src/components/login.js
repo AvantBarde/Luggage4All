@@ -20,6 +20,7 @@ function Login({username, password, setPassword, setUsername}) {
             tokenLogin(username, password, setToken)
             setPassword("");
             setUsername("");
+            history.push("./products.js");
     }
 
   return (

@@ -137,8 +137,20 @@ export async function adminTokenLogin( username, password, setToken) {
     .catch(console.error);
 }
 
+export async function getMe() {
+  return axios.get("/api/users/me", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  }).then((response) => {
+    return response.data;
+  }).catch((err) => {
+    console.error(err);
+  }
+  );
+}
 
-export async function tokenRegister( username, password, setToken) {
+export async function tokenRegister( username, password, firstName, lastName, setToken) {
   fetch(`api/users/register`, {
     method: "POST",
     headers : {
