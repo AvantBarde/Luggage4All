@@ -168,7 +168,8 @@ export async function tokenAuth(token) {
   })
 }
 
-export async function adminDeletePost( username, password, setToken) {
+export async function adminDeletePost( username, password, setToken, postId) {
+  
   fetch(`api/admin/posts/${postId}`, {
     method: "DELETE",
     headers : {
@@ -189,3 +190,34 @@ export async function adminDeletePost( username, password, setToken) {
     })
     .catch(console.error);
 }
+
+// addReview
+export async function addReview(productId, userId, rating, review) {
+  return axios.post(`/api/products/${productId}/reviews`, {
+    userId,
+    rating,
+    review
+  })
+}
+
+// deleteFromCart
+export async function deleteFromCart(userId, productId) {
+  return axios.delete(`/api/users/${userId}/cart/${productId}`)
+}
+
+// deleteProductFromCart
+export async function deleteProductFromCart(userId, productId) {
+  return axios.delete(`/api/users/${userId}/cart/${productId}`)
+}
+
+// getCart
+export async function getCart(userId) {
+  return axios.get(`/api/users/${userId}/cart`)
+}
+
+// getReviews
+export async function getReviews(productId) {
+  return axios.get(`/api/products/${productId}/reviews`)
+}
+
+
