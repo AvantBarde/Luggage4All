@@ -59,7 +59,7 @@ export async function getAPIHealth() {
 export async function getProductCard(id) {
   try {
     const { data: product } = await axios.get(`/api/products/${id}`);
-    return product;
+    
   } catch (err) {
     console.error(err);
   }
@@ -69,10 +69,13 @@ export async function getAllProducts() {
   try {
     const products = await axios.get("/api/products");
     return products;
-    
+
 
   } catch (err) {
     console.error(err);
+  }
+  finally {
+    console.log("getAllProducts");
   }
 }
 
