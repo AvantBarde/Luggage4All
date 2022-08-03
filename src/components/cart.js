@@ -1,7 +1,8 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Card, Container } from 'react-bootstrap'
-// import { getCart } from '../../db/models/cart'
+import { getCart } from "../axios-services"
+import CartCard from './cartCard'
 
 
 function Cart(props) {
@@ -27,9 +28,9 @@ function Cart(props) {
 
 
   return (
-    <Container>
-        <h1>Cart</h1>
-        {cart.map(product => (
+    <Container className='bg-light'>
+        <center><h1>Cart</h1></center>
+        {Array.isArray(cart) ?  cart.map(product => (
             <CartCard key={product.productId}
             name={product.name}
             description={product.description}
@@ -38,7 +39,9 @@ function Cart(props) {
             inStock={product.inStock}
             category={product.category}
                 />
-        ))}
+        ))
+    :
+    null}
     </Container>
 
   )

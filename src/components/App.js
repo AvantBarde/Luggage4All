@@ -10,8 +10,10 @@ import  Products  from "./products";
 // import  OrderProducts  from "./order_products";
 import  Register from "./register";
 //  import  AddToCart from "./addToCart";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Cart from "./cart";
 import UserProfile from './userProfile';
+import Nav from './Navbar';
 
 const App = () => {
   const localStorageToken = localStorage.getItem('jwt');
@@ -53,8 +55,9 @@ const App = () => {
       <h1>Hello, World!</h1>
       <p>API Status: {APIHealth}</p>
     </div>
-    
+    <Nav/>
     <Switch>
+      
       <Route exact path = "/products">
         <Products token = {token} setToken = {setToken} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
       </Route>
@@ -69,6 +72,14 @@ const App = () => {
         </Route>
       <Route exact path = "/admin">
         <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
+      </Route>
+      <Route exact path = "/cart">
+        <Cart>
+          <Cart token = {token} setToken = {setToken} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} cartChange = {cartChange} setCartChange = {setCartChange}/>
+        </Cart>
+      </Route>
+      <Route exact path = "/profile">
+        <UserProfile token = {token} setToken = {setToken} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
       </Route>
     </Switch>
     

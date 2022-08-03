@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { tokenRegister } from '../axios-services'
 
 
-function Register({username, password, setUsername, setPassword, setToken, confirmPass, setConfirmPass, setEmail, setFirstName, setLastName, seterror, email, firstName, lastName}) {
+function Register({username, password, setUsername, setPassword, setToken, confirmPass, setConfirmPass, setEmail, setFirstName, setLastName, setSrror, error, email, firstName, lastName}) {
 
     const history = useHistory();
 

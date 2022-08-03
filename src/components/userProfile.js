@@ -1,11 +1,12 @@
-import React, { useState, useHistory, useParams} from 'react'
-import { useEffect } from 'react'
+import React, { useState, useParams, useEffect} from 'react'
+import { useHistory } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap'
 // import { updateUser } from '../../db/models/user'
 import { getUser, updateUser } from "../axios-services/index" 
 
-function UserProfile() {
-  const { userId } = useParams();
+function UserProfile(props) {
+  // const { userId } = useParams();
+  const { userId } = props;
   const [error, setError] = useState("");
   const history = useHistory();
   const [username, setUsername] = useState("");
@@ -56,7 +57,7 @@ function UserProfile() {
   };
 
   return (
-    <Container>
+    <Container className='bg-light'>
       <h1>${username}'s Profile</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicUsername">

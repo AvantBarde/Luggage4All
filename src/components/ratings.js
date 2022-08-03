@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 // import { addReview } from '../../db/models/reviews'
+import { getReviews, addReview } from '../axios-services/index'
+import { Form, Button } from 'react-bootstrap'
 
 function Ratings(props) {
     const [stars, setStars] = useState(0)
@@ -8,12 +11,13 @@ function Ratings(props) {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [reviewStars, setReviewStars] = useState(0)
+    const history = useHistory()
     
 
-    const getReview = async (productId) => {
+  
       useEffect(() => {
         try {
-            const response = getReview(props.productId)
+            const response = getReviews(props.productId)
             if (response) {
                 setStars(response.stars)
             } else {
@@ -24,7 +28,7 @@ function Ratings(props) {
             console.error(error)
         }
         }, [])
-    }
+    
 
     const submitReview = async (e) => {
         e.preventDefault()
@@ -43,12 +47,12 @@ function Ratings(props) {
 
     return (
         <Container>
-            {(stars === 0) ? <div>No ratings yet</div> : <div>{stars}</div>}
+            {/* {(stars === 0) ? <div>No ratings yet</div> : <div>{stars}</div>}
             {(stars === 1) ? <div>One star</div> : <div>{stars} stars</div>}
             {(stars === 2) ? <div>Two stars</div> : <div>{stars} stars</div>}
             {(stars === 3) ? <div>Three stars</div> : <div>{stars} stars</div>}
             {(stars === 4) ? <div>Four stars</div> : <div>{stars} stars</div>}
-            {(stars === 5) ? <div>Five stars</div> : <div>{stars} stars</div>}
+            {(stars === 5) ? <div>Five stars</div> : <div>{stars} stars</div>} */}
             {error && <div>{error}</div>}
             <Container>
                 <Form onSubmit={submitReview}>

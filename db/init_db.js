@@ -15,16 +15,19 @@ const client = require('./client.js');
 async function buildTables() {
   try {
     client.connect();
-    
+    console.log("Starting to build tables..");
     // drop tables in correct order
     await client.query(`
-      DROP TABLE IF EXISTS cart;
-      DROP TABLE IF EXISTS reviews;
-      DROP TABLE IF EXISTS order_products;
-      DROP TABLE IF EXISTS orders;
-      DROP TABLE IF EXISTS products;
-      DROP TABLE IF EXISTS users;
-    
+      DROP TABLE IF EXISTS cart CASCADE;
+      DROP TABLE IF EXISTS reviews CASCADE;
+      DROP TABLE IF EXISTS order_products CASCADE;
+      DROP TABLE IF EXISTS orders CASCADE;
+      DROP TABLE IF EXISTS products CASCADE;
+      DROP TABLE IF EXISTS users CASCADE;
+      `);
+    // build tables in correct order
+    console.log("creating user tables..");
+    await client.query(`
       CREATE TABLE users(
         id SERIAL PRIMARY KEY,
         "firstName" varchar(255) NOT NULL,
@@ -33,10 +36,22 @@ async function buildTables() {
         "imageURL" TEXT DEFAULT 'https://imgur.com/a/PGDVLp1',
         username varchar(255) UNIQUE NOT NULL,
         password varchar(255) UNIQUE NOT NULL,
-        isAdmin BOOLEAN NOT NULL DEFAULT false
-      );
+        "isAdmin" BOOLEAN NOT NULL DEFAULT false
+      ) 
+    `);
 
-    
+    console.log("creating admin tables..");
+    await client.query(`
+    CREATE TABLE admins(
+      id SERIAL PRIMARY KEY,
+      username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      isadmin BOOLEAN NOT NULL DEFAULT true
+    )
+    `);
+
+    console.log('creating products tables...')
+    await client.query(`
         CREATE TABLE products(
           id SERIAL PRIMARY KEY, 
           name varchar(255) NOT NULL,

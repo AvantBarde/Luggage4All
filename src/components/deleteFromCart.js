@@ -1,6 +1,8 @@
 import React from 'react'
+import { useState, useHistory } from 'react'
 // import { deleteProductFromCart } from '../../db/models/cart'
 import { Button } from 'react-bootstrap'
+import { deleteProductFromCart } from '../axios-services'
 
 function DeleteFromCart(props) {
 
