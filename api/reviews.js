@@ -6,6 +6,7 @@ const { requireUser } = require('./utils');
 // route to add review to the database
 reviewRouter.post('/', requireUser, async (req, res, next) => {
     const { title, content, stars, productId, userId } = req.body;
+    console.log(title, content, stars, productId)
     const alreadyReviewed = await Reviews.checkIfUserHasAlreadyLeftReview({userId, productId});
     if (alreadyReviewed) {
         res.status(400).send('You have already reviewed this product');

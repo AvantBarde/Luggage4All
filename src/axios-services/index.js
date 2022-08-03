@@ -94,27 +94,21 @@ export async function reqHeaders(token) {
       };
 }
 
-export async function tokenLogin( username, password, setToken) {
-  fetch(`api/users/login`, {
-    method: "POST",
-    headers : {
-      "Content-Type" : "application/json"
-    },
-    body: JSON.stringify({
-      user: {
-        username: username,
-        password: password,
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      setToken(result.data.token);
-      localStorage.setItem("jwt", result.data.token);
-      console.log(result.data.token);
-    })
-    .catch(console.error);
+export async function tokenLogin(username, password, setToken) {
+  try {
+    const { data: login } = await axios.post('/api/users/login', {
+      username: username,
+      password: password,
+    });
+    setToken(login.token);
+    localStorage.setItem('jwt', login.token);
+    alert(login.message);
+  } catch (err) {
+    console.error(err);
+  }
 }
+
+
 export async function adminTokenLogin( username, password, setToken) {
   fetch(`api/admin/login`, {
     method: "POST",
@@ -137,13 +131,14 @@ export async function adminTokenLogin( username, password, setToken) {
     .catch(console.error);
 }
 
-export async function getMe() {
+export async function getMe({setUserData}) {
   return axios.get("/api/users/me", {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   }).then((response) => {
-    return response.data;
+    setUserData(response)
+    console.log(response)
   }).catch((err) => {
     console.error(err);
   }

@@ -20,7 +20,7 @@ function Login({username, password, setPassword, setUsername}) {
             tokenLogin(username, password, setToken)
             setPassword("");
             setUsername("");
-            history.push("./products.js");
+            history.push("./products");
     }
 
   return (
@@ -41,7 +41,7 @@ function Login({username, password, setPassword, setUsername}) {
         <ButtonGroup>
             <LinkContainer to="/register">
                 <Button variant="primary">
-                    Register
+                    Login
                 </Button>
             </LinkContainer>
             <LinkContainer to="/forgot-password">

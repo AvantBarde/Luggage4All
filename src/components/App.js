@@ -13,7 +13,7 @@ import  Register from "./register";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./cart";
 import UserProfile from './userProfile';
-import Nav from './Navbar';
+import NavigationBar from './navbar';
 
 const App = () => {
   const localStorageToken = localStorage.getItem('jwt');
@@ -33,6 +33,8 @@ const App = () => {
   const [confirmPass, setConfirmPass] = useState('');
   const [error, setError] = useState(false);
   const [email, setEmail] = useState('');
+  const [userData, setUserData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
   useEffect(() => {
@@ -55,7 +57,7 @@ const App = () => {
       <h1>Hello, World!</h1>
       <p>API Status: {APIHealth}</p>
     </div>
-    <Nav/>
+    <NavigationBar token = {token} setToken = {setToken} isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn} />
     <Switch>
       
       <Route exact path = "/products">
