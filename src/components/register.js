@@ -5,21 +5,30 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { tokenRegister } from '../axios-services'
 
 
-function Register({username, password, setUsername, setPassword, setToken, confirmPassword, setConfirmPassword, error, setError}) {
+function Register({username, password, setUsername, setPassword, setToken, confirmPass, setConfirmPass, setEmail, setFirstName, setLastName, setSrror, error, email, firstName, lastName}) {
+
+    const history = useHistory();
+
+
+    const reset = () => { 
+        setPassword("");
+        setUsername("");
+        setEmail("");
+        setFirstName("");
+        setLastName("");
+        setConfirmPass("");
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-            if(password===confirmPassword){
-                tokenRegister(username, password, setToken)
-                setPassword("");
-                setUsername("");
-                setConfirmPassword("");
+            if(password===confirmPass){
+                tokenRegister(username, password, email, firstName, lastName, setToken)
+                reset();
+                history.push('./products.js')
                 return
             } alert("Passwords must match one another")
-            setPassword("");
-            setUsername("");
-            setConfirmPassword("");
+            reset();
     }
 
 

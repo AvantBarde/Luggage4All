@@ -116,7 +116,7 @@ export async function tokenLogin( username, password, setToken) {
     .then((result) => {
       setToken(result.data.token);
       localStorage.setItem("jwt", result.data.token);
-      alert(result.data.message);
+      console.log(result.data.token);
     })
     .catch(console.error);
 }
@@ -142,9 +142,21 @@ export async function adminTokenLogin( username, password, setToken) {
     .catch(console.error);
 }
 
+export async function getMe() {
+  return axios.get("/api/users/me", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  }).then((response) => {
+    return response.data;
+  }).catch((err) => {
+    console.error(err);
+  }
+  );
+}
 
-export async function tokenRegister( username, password, setToken) {
-  fetch(`api/users/register`, {
+export async function tokenRegister( username, password, firstName, lastName, email, setToken) {
+  axios.get(`api/users/register`, {
     method: "POST",
     headers : {
       "Content-Type" : "application/json"
@@ -153,6 +165,9 @@ export async function tokenRegister( username, password, setToken) {
       user: {
         username: username,
         password: password,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
       },
     }),
   })
