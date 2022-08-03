@@ -89,6 +89,7 @@ function Products() {
         try {
             const response = getAllProducts()
             if (response) {
+              console.log(response)
                 setProducts(response)
                 setLoading(false)
             } else {
@@ -111,7 +112,7 @@ function Products() {
     <center><h1>Products</h1></center>
     <Container className='bg-light d-flex flex-row flex-wrap' >
         
-        {Array.isArray(testProdcuts) ? testProdcuts.map(product => (
+        {Array.isArray(products) ? products.map(product => (
             <ProductCard key={product.productId} 
             name={product.name}
             description={product.description}
