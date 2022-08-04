@@ -40,15 +40,15 @@ async function buildTables() {
       ) 
     `);
 
-    console.log("creating admin tables..");
-    await client.query(`
-    CREATE TABLE admins(
-      id SERIAL PRIMARY KEY,
-      username VARCHAR(255) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      isadmin BOOLEAN NOT NULL DEFAULT true
-    )
-    `);
+    // console.log("creating admin tables..");
+    // await client.query(`
+    // CREATE TABLE admins(
+    //   id SERIAL PRIMARY KEY,
+    //   username VARCHAR(255) UNIQUE NOT NULL,
+    //   password VARCHAR(255) NOT NULL,
+    //   isadmin BOOLEAN NOT NULL DEFAULT true
+    // )
+    // `);
 
     console.log('creating products tables...')
     await client.query(`
@@ -231,12 +231,9 @@ async function populateInitialData() {
       }
     );
 
-
-    
-    
     console.log("creating admin users...");
 
-    const adminUser1 = await Admins.createAdmin(
+    const adminUser1 = await Users.createUser(
       {
         firstName: 'Jordan',
         lastName: 'Steger',
@@ -247,7 +244,7 @@ async function populateInitialData() {
       }
     );
 
-    const adminUser2 = await Admins.createAdmin(
+    const adminUser2 = await Users.createUser(
       { 
       firstName: 'David',
       lastName: 'Stein',
@@ -258,7 +255,7 @@ async function populateInitialData() {
       }
     );
 
-    const adminUser3 = await Admins.createAdmin(
+    const adminUser3 = await Users.createUser(
       {
         firstName: 'Miles',
         lastName: 'Clark',
@@ -269,7 +266,7 @@ async function populateInitialData() {
       }
     );
     
-    const adminUser4 = await Admins.createAdmin(
+    const adminUser4 = await Users.createUser(
       {
         firstName: 'Bardell',
         lastName: 'Wilson',
