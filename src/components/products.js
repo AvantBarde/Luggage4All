@@ -5,7 +5,7 @@ import { getAllProducts, getProducts } from "../axios-services"
 import  ProductCard from './productCard';
 
 
-function Products() {
+function Products({products, setProducts}) {
 
     // const testProdcuts = [
     //     {
@@ -82,18 +82,17 @@ function Products() {
     // ]
 
     const [error, setError] = useState('')
-    const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
  
     useEffect(() => {
       const fetchAllProducts = async () => {
         const result = await getAllProducts();
-        setProducts(result);
+        setProducts(result.data);
+        console.log(products);
       };
       fetchAllProducts();
     }, []);
   
-
     
     
 
@@ -114,7 +113,7 @@ function Products() {
             category={product.category}
              />
         )):
-        null}
+        console.log('not array')}
     </Container>
     </>
   )

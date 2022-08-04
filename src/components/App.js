@@ -51,6 +51,16 @@ const App = () => {
     getAPIStatus();
   }, []);
 
+  // useEffect(() => {
+  //   const fetchAllProducts = async () => {
+  //     const result = await getAllProducts();
+  //     setProducts(result);
+  //   };
+  //   fetchAllProducts();
+  // }, []);
+
+  
+  
   return (
     <>
     <div className="app-container">

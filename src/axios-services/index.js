@@ -68,6 +68,7 @@ export async function getProductCard(id) {
 export async function getAllProducts() {
   try {
     const products = await axios.get("/api/products");
+    console.log(products);
     return products;
 
 

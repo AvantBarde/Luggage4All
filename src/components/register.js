@@ -55,11 +55,6 @@ function Register({username, password, setUsername, setPassword, setToken, confi
                     Register
                 </Button>
             </LinkContainer>
-            <LinkContainer to="/forgot-password">
-                <Button variant="primary">
-                    Forgot Password
-                </Button>
-            </LinkContainer>
         </ButtonGroup>
         {error && <p>{error}</p>}
     </Container>
