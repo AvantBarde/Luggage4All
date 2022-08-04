@@ -6,15 +6,15 @@ import { getAPIHealth } from "../axios-services";
 import "../style/App.css";
 import { Route, Switch } from "react-router-dom";
 import Login from "./login";
-import  Products  from "./products";
+import Products from "./products";
 // import  OrderProducts  from "./order_products";
-import  Register from "./register";
+import Register from "./register";
 //  import  AddToCart from "./addToCart";
 
-import UserProfile from './userProfile';
+import UserProfile from "./userProfile";
 
 const App = () => {
-  const localStorageToken = localStorage.getItem('jwt');
+  const localStorageToken = localStorage.getItem("jwt");
 
   const [token, setToken] = useState(localStorageToken);
   const [signedIn, setSignedIn] = useState(false);
@@ -25,12 +25,11 @@ const App = () => {
   const [guestCart, setGuestCart] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
   const [cartChange, setCartChange] = useState(0);
-  const [APIHealth, setAPIHealth] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPass, setConfirmPass] = useState('');
+  const [APIHealth, setAPIHealth] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
   const [error, setError] = useState(false);
-
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -48,26 +47,70 @@ const App = () => {
 
   return (
     <>
-    <div className="app-container">
-      <h1>Hello, World!</h1>
-      <p>API Status: {APIHealth}</p>
-    </div>
-    
-    <Switch>
-      <Route exact path = "/products">
-        <Products token = {token} setToken = {setToken} products = {products} setProducts = {setProducts} originalProducts = {originalProducts} setOriginalProducts = {setOriginalProducts} shoppingCart = {shoppingCart} setShoppingCart = {setShoppingCart} guestCart = {guestCart} setGuestCart = {setGuestCart} searchItem = {searchItem}  setSearchItem = {setSearchItem} cartChange = {cartChange} setCartChange = {setCartChange}/>
-      </Route>
-      <Route exact path = "/users/:userId">
-        <UserProfile token = {token} setToken = {setToken} adminSignedIn = {adminSignedIn} setAdminSignedIn = {setAdminSignedIn} setSignedIn = {setSignedIn}/>
-      </Route>
-      <Route exact path = "/register">
-      <Register token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} error = {error} setError = {setError} />
-      </Route>
-      <Route exact path = "/login">
-        <Login token = {token} setToken = {setToken} signedIn = {signedIn} setSignedIn =  {setSignedIn} username = {username} setUsername = {setUsername} password = {password} setPassword = {setPassword} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} />
-      </Route>
-    </Switch>
-    
+      <div className="app-container">
+        <h1>Hello, World!</h1>
+        <p>API Status: {APIHealth}</p>
+      </div>
+
+      <Switch>
+        <Route exact path="/products">
+          <Products
+            token={token}
+            setToken={setToken}
+            products={products}
+            setProducts={setProducts}
+            originalProducts={originalProducts}
+            setOriginalProducts={setOriginalProducts}
+            shoppingCart={shoppingCart}
+            setShoppingCart={setShoppingCart}
+            guestCart={guestCart}
+            setGuestCart={setGuestCart}
+            searchItem={searchItem}
+            setSearchItem={setSearchItem}
+            cartChange={cartChange}
+            setCartChange={setCartChange}
+          />
+        </Route>
+        <Route exact path="/users/:userId">
+          <UserProfile
+            token={token}
+            setToken={setToken}
+            adminSignedIn={adminSignedIn}
+            setAdminSignedIn={setAdminSignedIn}
+            setSignedIn={setSignedIn}
+          />
+        </Route>
+        <Route exact path="/register">
+          <Register
+            token={token}
+            setToken={setToken}
+            signedIn={signedIn}
+            setSignedIn={setSignedIn}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            confirmPass={confirmPass}
+            setConfirmPass={setConfirmPass}
+            error={error}
+            setError={setError}
+          />
+        </Route>
+        <Route exact path="/login">
+          <Login
+            token={token}
+            setToken={setToken}
+            signedIn={signedIn}
+            setSignedIn={setSignedIn}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            confirmPass={confirmPass}
+            setConfirmPass={setConfirmPass}
+          />
+        </Route>
+      </Switch>
     </>
   );
 };
