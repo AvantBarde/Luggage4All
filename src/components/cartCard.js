@@ -5,6 +5,7 @@ import DeleteFromCart from './deleteFromCart'
 
 function CartCard(props) {
     const { name, description, price, imageURL, inStock, category } = props
+    console.log(name, description, price, imageURL);
     
 
 
