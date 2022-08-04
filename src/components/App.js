@@ -13,7 +13,7 @@ import  Register from "./register";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cart from "./cart";
 import UserProfile from './userProfile';
-import NavigationBar from './navbar';
+import NavigationBar from './navigation';
 
 const App = () => {
   const localStorageToken = localStorage.getItem('jwt');
