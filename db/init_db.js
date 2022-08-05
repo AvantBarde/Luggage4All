@@ -332,15 +332,15 @@ async function populateInitialData() {
           inStock: true,
           category: "travel",
         });
-      const product7 = await Products.createProduct(
-        {
-          name: "Zip Tote Bag - Large ",
-          description: "A leakproof bag made for beachdays.",
-          price: 75.00,
-          imageURL: "https://herschel.com/content/dam/herschel/products/11066/11066-05293-OS_02.jpg.sthumbnails.1000.1250.jpg",
-          inStock: true,
-          category: "travel",
-        });
+      // const product7 = await Products.createProduct(
+      //   {
+      //     name: "Zip Tote Bag - Large ",
+      //     description: "A leakproof bag made for beachdays.",
+      //     price: 75.00,
+      //     imageURL: "https://herschel.com/content/dam/herschel/products/11066/11066-05293-OS_02.jpg.sthumbnails.1000.1250.jpg",
+      //     inStock: true,
+      //     category: "travel",
+      //   });
       const product8 = await Products.createProduct(
         {
           name: "Tech Assortment Pouch",
