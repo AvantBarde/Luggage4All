@@ -6,7 +6,7 @@ const Navbar = ({ token }) => {
   return (
     <nav id="navbar">
       <div className='logo'>
-        <Link to='/'>
+        <Link to='/FrontPage'>
           {/* <img src='https://cdn-icons.flaticon.com/png/128/2314/premium/2314834.png?token=exp=1658543142~hmac=31e21e4b5128dd06de480abdbc6fa68c'></img> */}
           <h2>Luggage4All</h2>
 

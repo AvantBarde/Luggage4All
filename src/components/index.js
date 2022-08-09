@@ -8,3 +8,4 @@ export { default as SingleProduct } from "./SingleProduct";
 export { default as Register } from "./Register";
 export { default as Cart } from "./Cart";
 export { default as SingleUser } from "./SingleUser"
+export { default as FrontPage } from "./FrontPage";

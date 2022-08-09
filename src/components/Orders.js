@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchAllOrders } from '../FETCHREQUESTS';
 // import { Link } from 'react-router-dom';
-import '../style/Products.css'
+import '../style/Orders.css'
 
 function Orders() {
     const [ordersList, setOrdersList] = useState([]);
@@ -40,7 +40,7 @@ function Orders() {
     return (
         <div className='productContainer'>
             <h1>orders</h1>
-            <div className='productList'>
+            <div className='OrderList'>
                 {mappedOrders}
             </div>
 

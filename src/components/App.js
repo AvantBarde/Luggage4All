@@ -24,6 +24,7 @@ import {
   Products,
   SingleProduct,
   SingleUser,
+  FrontPage,
 } from "../components";
 
 const App = () => {
@@ -49,12 +50,12 @@ const App = () => {
         <Navbar token={token} />
         <div className="content">
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/FrontPage">
               <>
                 {/* should probably create a home component */}
                 {user ? <h1>Welcome {user.username}!</h1> : null}
-                <h1>Checking health</h1>
-                {APIHealth}
+                <FrontPage />
+               { console.log(APIHealth)}
               </>
             </Route>
             <Route exact path="/products">
