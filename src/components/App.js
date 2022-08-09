@@ -1,127 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import '../style/App.css';
+import React, { useState, useEffect } from "react";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { currentUserInfo, getAPIHealth } from '../axios-services';
 import {
-  SingleProduct,
-  AllProducts,
-  NavigationBar,
-  Register,
+  getAPIHealth,
+} from "../FETCHREQUESTS";
+import "../style/App.css";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+
+import {
   Login,
-  Profile,
-  SingleOrder,
-  FrontPage,
+  Navbar,
+  Orders,
+  Register,
   Cart,
-  Checkout,
-  OrderConfirmation,
-} from './index';
+  Users,
+  Products,
+  SingleProduct,
+  SingleUser,
+} from "../components";
 
 const App = () => {
-  const [APIHealth, setAPIHealth] = useState('');
-  const [token, setToken] = useState('');
-  const [userInfo, setUserInfo] = useState({});
-  const [cart, setCart] = useState([]);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword]= useState('');
-  const [confirmPass, setConfirmPass] = useState('');
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [products, setProducts] = useState('');
-
-
-  const localStorageToken = localStorage.getItem('jwt');
-  const localStorageCart = localStorage.getItem('localStorageCart');
+  const [APIHealth, setAPIHealth] = useState("");
+  const tokenFromStorage = localStorage.getItem("jwt");
+  const userFromStorage = localStorage.getItem('userObject')
+  const parsedUser = JSON.parse(userFromStorage)
+  const [token, setToken] = useState(tokenFromStorage);
+  const [user, setUser] = useState(parsedUser);
   useEffect(() => {
-    // follow this pattern inside your useEffect calls:
-    // first, create an async function that will wrap your axios service adapter
-    // invoke the adapter, await the response, and set the data
     const getAPIStatus = async () => {
       const { healthy } = await getAPIHealth();
-      setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+      setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
     };
 
-    currentUserInfo(setUserInfo, token);
-    localStorageToken && setToken(localStorageToken);
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
-  }, [token, localStorageToken]);
-
-  useEffect(() => {
-    localStorageCart && setCart(localStorageCart);
-  }, [localStorageCart]);
-
-  console.log(APIHealth);
-  console.log(token)
+  }, []);
 
   return (
-    <div className='app-container'>
+    <div className="app-container">
       <Router>
-        <NavigationBar
-          token={token}
-          setToken={setToken}
-          setUserInfo={setUserInfo}
-          userInfo={userInfo}
-
-        />
-        <Switch>
-          <Route exact path='/products/:productId'>
-            <SingleProduct cart={cart} setCart={setCart} products={products} setProducts = {setProducts} />
-          </Route>
-
-          <Route exact path='/products'>
-            <AllProducts products = {products} setProducts = {setProducts} />
-          </Route>
-      
-
-          <Route exact path='/register'>
-            <Register token = {token} username = {username} password = {password} setUsername = {setUsername} setPassword = {setPassword} setToken = {setToken} confirmPass = {confirmPass} setConfirmPass = {setConfirmPass} setEmail = {setEmail} setFirstName = {setFirstName} setLastName = {setLastName} setError = {setError} error = {error} email = {email} firstName = {firstName} lastName = {lastName} />
-
-          </Route>
-
-          <Route exact path='/login'>
-            <Login setToken={setToken}/>
-          </Route>
-
-          <Route exact path='/profile'>
-            <Profile userInfo={userInfo} />
-          </Route>
-
-          <Route exact path='/orders/cart'>
-            <Cart token={token}/>
-          </Route>
-
-          <Route exact path='/orders/:orderId'>
-            <SingleOrder />
-          </Route>
-
-          <Route exact path='/cart'>
-            <SingleOrder />
-          </Route>
-
-          <Route exact path='/cart/checkout'>
-            <Checkout userInfo={userInfo} />
-          </Route>
-
-          <Route exact path='/confirmation'>
-            <OrderConfirmation userInfo={userInfo} />
-          </Route>
-
-          <Route path='/'>
-            <FrontPage />
-          </Route>
-        </Switch>
+        <Navbar token={token} />
+        <div className="content">
+          <Switch>
+            <Route exact path="/">
+              <>
+                {/* should probably create a home component */}
+                {user ? <h1>Welcome {user.username}!</h1> : null}
+                <h1>Checking health</h1>
+                {APIHealth}
+              </>
+            </Route>
+            <Route exact path="/products">
+              <Products />
+            </Route>
+            <Route exact path="/account">
+              {token ? <SingleUser user={user} setToken={setToken} token={token} setUser={setUser} /> : <Redirect to='/account/login' />}
+            </Route>
+            <Route path="/users" >
+              <Users user={user} />
+            </Route>
+            <Route path="/account/login">
+              {token ? <Redirect to='/' /> : <Login setToken={setToken} setUser={setUser} user={user} />}
+            </Route>
+            <Route path="/account/register">
+              {token ? <Redirect to='/' /> : <Register />}
+            </Route>
+            <Route exact path="/orders">
+              <Orders user={user} />
+            </Route>
+            <Route path="/orders/cart">
+              <Cart user={user} />
+            </Route>
+            <Route path="/products/:productId">
+              <SingleProduct user={user} />
+            </Route>
+          </Switch>
+        </div>
       </Router>
-
-      {/* <div className='API-status'>
-        <h1>Hello, World!</h1>
-        <p>API Status: {APIHealth}</p>
-      </div> */}
     </div>
   );
 };
