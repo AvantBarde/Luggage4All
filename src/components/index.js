@@ -1,5 +1,12 @@
-import React from 'react'
-
-
-
 export { default as App } from './App';
+export { default as SingleProduct } from './productCard';
+export { default as AllProducts } from './AllProducts';
+export { default as SingleOrder } from './SingleOrder';
+export { default as NavigationBar } from './navbar';
+export { default as Register } from './register';
+export { default as Login } from './login';
+export { default as Profile } from './Profile';
+export { default as Cart } from './cart';
+export { default as FrontPage } from './FrontPage';
+export { default as Checkout } from './checkout';
+export { default as OrderConfirmation } from './OrderConfirmation.js';

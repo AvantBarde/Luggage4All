@@ -62,7 +62,7 @@ usersRouter.get("/me", async (req, res, next) => {
         res.status(401).send("No token");
     } else {
         try { 
-        const user = await User.getUserById(jwt.verify( token, process.env.JWT_SECRET ).id);
+        const user = await User.getUserById(jwt.verify( token, process.env.JWT_KEY ).id);
         if (user) {
             res.send(user);
         }

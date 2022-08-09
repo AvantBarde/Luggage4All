@@ -29,7 +29,7 @@ adminRouter.post("/register", async (req, res, next) => {
       });
     } else {
       const user = await createAdmin({ username, password });
-      const token = jwt.sign(user, REACT_APP_JWT_SECRET);
+      const token = jwt.sign(user, REACT_APP_JWT_KEY);
       res.send({ user, message: "Thank you for registering", token: token });
       res.send({
         user,

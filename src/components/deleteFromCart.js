@@ -3,6 +3,7 @@ import { useState, useHistory } from 'react'
 // import { deleteProductFromCart } from '../../db/models/cart'
 import { Button } from 'react-bootstrap'
 import { deleteProductFromCart } from '../axios-services'
+import './Front-page-css.css'
 
 function DeleteFromCart(props) {
 

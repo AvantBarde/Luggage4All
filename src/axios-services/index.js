@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
@@ -18,37 +18,46 @@ import axios from "axios";
   }
 */
 
-export async function getUser() {
+export const callApi = async ({ url, method, token, body }) => {
   try {
-    const { data: users } = await axios.get('/api/users')
-    return users;
-  } catch(err) {
-    console.error(err)
+    fetch(url, {
+      method: method ? method.toUpperCase() : "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+
+    const options = {
+      method: method ? method.toUpperCase() : "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+
+    console.log("options", options)
+
+    if (token) {
+      options.headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(url, options);
+
+    const data = await response.json();
+
+    if (data.error) throw data.error;
+
+    return data;
+  } catch (error) {
+    console.error("ERROR: ", error);
+    return error;
   }
-}
-
-export function updateUser (userId, username, password, email, firstName, lastName, imageURL) {
-  return axios.put(`/api/users/${userId}`, {
-    username,
-    password,
-    email,
-    firstName,
-    lastName,
-    imageURL
-  })
-}
-
-
-export function addProductToCart(userId, productId) {
-  return axios.put(`/api/users/${userId}/cart`, {
-    productId
-  })
-}
-
+};
 
 export async function getAPIHealth() {
   try {
-    const { data } = await axios.get("/api/health");
+    const { data } = await axios.get('/api/health');
+
     return data;
   } catch (err) {
     console.error(err);
@@ -56,10 +65,11 @@ export async function getAPIHealth() {
   }
 }
 
-export async function getProductCard(id) {
+export async function getSingleProduct(productId) {
   try {
-    const { data: product } = await axios.get(`/api/products/${id}`);
-    
+    const { data: product } = await axios.get(`/api/products/${productId}`);
+
+    return product;
   } catch (err) {
     console.error(err);
   }
@@ -67,44 +77,54 @@ export async function getProductCard(id) {
 
 export async function getAllProducts() {
   try {
-    const products = await axios.get("/api/products");
-    console.log(products);
+    const { data: products } = await axios.get('/api/products');
+
     return products;
-
-
   } catch (err) {
     console.error(err);
   }
-  finally {
-    console.log("getAllProducts");
-  }
 }
 
-export async function getSingleProduct(id) {
+export async function getUserCart(token) {
   try {
-    const { data: product } = await axios.get(`/api/products/${id}`);
-    return product;
+    const { data: [cart] } = await axios.get(`/api/orders/cart`, {
+      headers: makeHeaders(token),
+    });
+    return cart;
   } catch (err) {
     console.error(err);
   }
 }
 
-export async function reqHeaders(token) {
-  return token
-    ? {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
-    : {
-        "Content-Type": "application/json",
-      };
+export async function tokenRegister(
+  inputUsername,
+  inputPassword,
+  inputEmail,
+  inputFirst,
+  inputLast,
+  setToken
+) {
+  try {
+    const { data: register } = await axios.post('/api/users/register', {
+      username: inputUsername,
+      password: inputPassword,
+      email: inputEmail,
+      firstName: inputFirst,
+      lastName: inputLast,
+    });
+    setToken(register.token);
+    localStorage.setItem('jwt', register.token);
+    alert(register.message);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-export async function tokenLogin(username, password, setToken) {
+export async function tokenLogin(inputUsername, inputPassword, setToken) {
   try {
     const { data: login } = await axios.post('/api/users/login', {
-      username: username,
-      password: password,
+      username: inputUsername,
+      password: inputPassword,
     });
     setToken(login.token);
     localStorage.setItem('jwt', login.token);
@@ -114,126 +134,81 @@ export async function tokenLogin(username, password, setToken) {
   }
 }
 
-
-export async function adminTokenLogin( username, password, setToken) {
-  fetch(`api/admin/login`, {
-    method: "POST",
-    headers : {
-      "Content-Type" : "application/json"
-    },
-    body: JSON.stringify({
-      user: {
-        username: username,
-        password: password,
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      setToken(result.data.token);
-      localStorage.setItem("jwt", result.data.token);
-      alert(result.data.message);
-    })
-    .catch(console.error);
+export async function currentUserInfo(setUserInfo, token) {
+  try {
+    const { data: user } = await axios.get('/api/users/me', {
+      headers: makeHeaders(token),
+    });
+    setUserInfo(user);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-export async function getMe({setUserData}) {
-  return axios.get("/api/users/me", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    },
-  }).then((response) => {
-    setUserData(response)
-    console.log(response)
-  }).catch((err) => {
+const makeHeaders = (token) => {
+  return token
+    ? {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    : {
+        'Content-Type': 'application/json',
+      };
+};
+
+export async function getSingleOrder(orderId) {
+  try {
+    const { data: [order] } = await axios.get(`/api/orders/${orderId}`);
+
+    return order;
+  } catch (err) {
     console.error(err);
   }
-  );
 }
 
-export async function tokenRegister( username, password, firstName, lastName, email, setToken) {
-  axios.get(`api/users/register`, {
-    method: "POST",
-    headers : {
-      "Content-Type" : "application/json"
-    },
-    body: JSON.stringify({
-      user: {
-        username: username,
-        password: password,
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      setToken(result.data.token);
-      localStorage.setItem("jwt", result.data.token);
-      alert(result.data.message);
-    })
-    .catch(console.error);
+export async function updateCartProduct(product) {
+  const orderProductId = product.id
+  try {
+    const { data: updatedCartProduct } = await axios.patch(`/api/orderProducts/${orderProductId}`, {
+      quantity: product.quantity
+    });
+
+    return updatedCartProduct;
+  } catch(err) {
+    console.error(err)
+  }
+}
+export async function cancelOrder(orderId) {
+  try {
+    const { data: order } = await axios.patch(`/api/orders/${orderId}`, {
+      status: 'cancelled',
+    });
+
+    return order;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-export async function tokenAuth(token) {
-  return axios.get(`/api/users/auth`, {
-    headers: {
-      "Authorization": `Bearer ${token}`
-    }
-  })
+export async function completeOrder(orderId) {
+  try {
+    const { data: order } = await axios.patch(`/api/orders/${orderId}`, {
+      status: 'completed',
+    });
+
+    return order;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-export async function adminDeletePost( username, password, setToken, postId) {
-  
-  fetch(`api/admin/posts/${postId}`, {
-    method: "DELETE",
-    headers : {
-      "Content-Type" : "application/json"
-    },
-    body: JSON.stringify({
-      user: {
-        username: username,
-        password: password,
-      },
-    }),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      setToken(result.data.token);
-      localStorage.setItem("jwt", result.data.token);
-      alert(result.data.message);
-    })
-    .catch(console.error);
+export async function deleteOrderProduct(product) {
+  const orderProductId = product.id
+  try {
+    const {data: [deletedOrderProduct] } = await axios.delete(`api/orderProducts/${orderProductId}`)
+
+    return deletedOrderProduct
+  } catch(err) {
+    console.error(err)
+  }
 }
-
-// addReview
-export async function addReview(productId, userId, rating, review) {
-  return axios.post(`/api/products/${productId}/reviews`, {
-    userId,
-    rating,
-    review
-  })
-}
-
-// deleteFromCart
-export async function deleteFromCart(userId, productId) {
-  return axios.delete(`/api/users/${userId}/cart/${productId}`)
-}
-
-// deleteProductFromCart
-export async function deleteProductFromCart(userId, productId) {
-  return axios.delete(`/api/users/${userId}/cart/${productId}`)
-}
-
-// getCart
-export async function getCart(userId) {
-  return axios.get(`/api/users/${userId}/cart`)
-}
-
-// getReviews
-export async function getReviews(productId) {
-  return axios.get(`/api/products/${productId}/reviews`)
-}
-
-
