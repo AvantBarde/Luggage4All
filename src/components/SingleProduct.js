@@ -4,7 +4,7 @@ import { fetchSingleProduct } from '../FETCHREQUESTS';
 import '../style/SingleProduct.css'
 
 //pass in id as paramater, left empty just to test out specific products.
-function SingleProduct() {
+function SingleProduct ({setCartInfo}) {
     const { productId } = useParams()
     const [singleProduct, setSingleProduct] = useState([]);
 
@@ -39,7 +39,7 @@ function SingleProduct() {
                         {/*Mary's cart button will replace this one. */}
                         <button onClick={(e) => {
                             e.preventDefault()
-                            console.log('hey')
+                            setCartInfo(singleProduct);
                         }
                         }>Add to Cart</button>
                     </div>

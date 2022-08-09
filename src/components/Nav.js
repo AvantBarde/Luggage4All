@@ -23,7 +23,7 @@ const Navbar = ({ token }) => {
           {token ? <Link to='/orders'>Orders</Link> : <Link to='/account/login'>Login</Link>}
         </li>
         <li>
-          {token ? <Link to='/users'>Users</Link> : <Link to='/account/register'>Register</Link>}
+          {!token ? <Link to='/account/register'>Register</Link> : null}
         </li>
         <li>
           {token ? <Link to='/account'>Account</Link> : null}

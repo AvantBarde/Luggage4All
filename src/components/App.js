@@ -33,6 +33,7 @@ const App = () => {
   const parsedUser = JSON.parse(userFromStorage)
   const [token, setToken] = useState(tokenFromStorage);
   const [user, setUser] = useState(parsedUser);
+  const [cartInfo, setCartInfo] = useState({})
   useEffect(() => {
     const getAPIStatus = async () => {
       const { healthy } = await getAPIHealth();
@@ -75,10 +76,10 @@ const App = () => {
               <Orders user={user} />
             </Route>
             <Route path="/orders/cart">
-              <Cart user={user} />
+              <Cart user={user} cartInfo = {cartInfo} setCartInfo = {setCartInfo}/>
             </Route>
             <Route path="/products/:productId">
-              <SingleProduct user={user} />
+              <SingleProduct user={user} setCartInfo = {setCartInfo} />
             </Route>
           </Switch>
         </div>

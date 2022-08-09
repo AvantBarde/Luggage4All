@@ -18,7 +18,7 @@ const SingleUser = ({ user, setUser, setToken, token }) => {
         <div className='accountInfo'>
           <p><strong>Name:</strong>{user.firstName}  {user.lastName} </p>
           <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Orders:</strong><Link to='/acccount/orders'>My Orders</Link></p>
+          <p><strong>Orders:</strong><Link to='/orders'>My Orders</Link></p>
         </div>
       </div>
 
