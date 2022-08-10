@@ -6,7 +6,6 @@ const {
   Users,
   Order_Products,
   Reviews,
-  Admins,
 } = require('./models');
 
 const client = require('./client.js');

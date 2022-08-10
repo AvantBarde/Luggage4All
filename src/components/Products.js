@@ -23,6 +23,7 @@ function Products() {
 
     const mappedProducts = productsList.map((product) => {
         return (
+            <div className="productContainer">
             <div className='product'>
                 {/* make it so that image and/or product name are a link to a single product. */}
                 <img src={product.imageURL} alt={product.description}></img>
@@ -31,7 +32,7 @@ function Products() {
                 ><h3>{product.name}</h3></Link>
 
                 <div className='row'>
-                    <p className='price'>{product.price}</p>
+                    <p className='price'>${product.price}</p>
                     <p className='rating'>Product Rating</p>
                 </div>
                 {/*could add inStock and category? Probably more useful as searchable items? 
@@ -40,6 +41,7 @@ function Products() {
 
 
 
+            </div>
             </div>
         )
     })

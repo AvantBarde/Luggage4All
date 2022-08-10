@@ -2,8 +2,6 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 :root {
@@ -13,9 +11,7 @@
   --blue: blue;
 }
 
-html {
-  touch-action: manipulation;
-}
+
 
 body {
   margin: 0;

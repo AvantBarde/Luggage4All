@@ -60,7 +60,6 @@ async function getProductById(id) {
   }
 }
 
-//hope this shit works
 async function attachProductsToOrders(orders) {
   try {
     const { rows } = await client.query(`

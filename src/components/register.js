@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { registerUser } from "../FETCHREQUESTS";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import '../style/Register.css'
 //firstName, lastName, email, imageURL, username, password, isAdmin
 const Register = () => {
@@ -11,6 +11,8 @@ const Register = () => {
   const [passwordString, setPasswordString] = useState("");
   const [confirmPasswordString, setConfirmPasswordString] = useState("");
   const [registered, setRegistered] = useState("")
+
+  const history = useHistory();
 
   return (
     <div className='registerContainer'>
@@ -24,6 +26,7 @@ const Register = () => {
               await registerUser(firstName, lastName, email, usernameString, passwordString).then((results) => {
                 if (results.message === 'Thank you for registering') {
                   setRegistered(`${results.user.username} successfully registered, proceed to login.`)
+                  history.push('./login');
                 } else {
                   setRegistered(results.message)
                 }
@@ -101,7 +104,7 @@ const Register = () => {
         <fieldset>
           <button type="submit">Register Account</button>
         </fieldset>
-        <span>Already have an account?? <Link to="/account/login"> Login here!</Link></span>
+        <span>Already have an account? <Link to="/account/login"> Login here!</Link></span>
       </form>
 
     </div>
