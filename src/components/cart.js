@@ -26,7 +26,7 @@ function Cart({cartInfo, setCartInfo}) {
             <p><img style = {{height: '200px'}} alt = '' src ={data.imageURL}/></p>
             </>
         )})}
-        {cartInfo.id ? <button>Check out</button> : null}
+        {cartInfo.id ? <div><button>Check out</button>{cartData.price}</div> : <h1>Nothing In Cart :(</h1>}
         </div>
     )
 }

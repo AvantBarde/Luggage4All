@@ -13,20 +13,14 @@ apiRouter.get('/health', (req, res, next) => {
 });
 
 // place your routers here
+const productsRouter = require('./products');
+apiRouter.use('/products', productsRouter);
 
 const usersRouter = require('./users');
-apiRouter.use('/users', usersRouter );
+apiRouter.use('/users', usersRouter)
 
 const ordersRouter = require('./orders');
-apiRouter.use('/orders', ordersRouter );
-
-const productsRouter = require('./products');
-apiRouter.use('/products', productsRouter );
-
-const adminRouter = require('./admin');
-apiRouter.use('/admin', adminRouter );
-
-
+apiRouter.use('/orders', ordersRouter)
 
 
 

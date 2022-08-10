@@ -1,8 +1,7 @@
 const express = require("express");
 const adminRouter = express.Router();
 const jwt = require("jsonwebtoken");
-const { getAdmin, getAdminByUsername, createAdmin } = require("../db/models/admins");
-const { REACT_APP_JWT_SECRET } = process.env;
+const { REACT_APP_JWT_KEY } = process.env;
 
 adminRouter.get("/", async (req, res, next) => {
   try {
@@ -45,7 +44,7 @@ adminRouter.post("/admin/login", async (req, res, next) => {
   try {
     const user = await getAdmin({ username, password });
     if (user) {
-      const token = jwt.sign(user, REACT_APP_JWT_SECRET);
+      const token = jwt.sign(user, REACT_APP_JWT_KEY);
       res.send({ message: "you're logged in!", token: token });
     } else {
       next({

@@ -1,19 +1,46 @@
-const client = require('../client');
+const client = require("../client");
 
-//Gets All Products And Returns Array With All Products
-async function getAllProducts() {
+
+async function createProducts({
+  name,
+  description,
+  price,
+  imageURL,
+  inStock,
+  category,
+}) {
   try {
-    const { rows: products } = await client.query(`
-    SELECT *
-    FROM products;`);
-
-    return products;
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+      INSERT INTO products(name, description, price, "imageURL", "inStock", category)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING *;
+    `,
+      [name, description, price, imageURL, inStock, category]
+    );
+    console.log(product);
+    return product;
   } catch (error) {
-    console.error('ERROR GETTING ALL PRODUCTS');
+    console.error(error);
     throw error;
   }
 }
-//Gets Specific Product By Passed In Id
+
+async function getAllProducts() {
+  try {
+    const { rows } = await client.query(`
+        SELECT *
+        FROM products
+        `);
+    return rows;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 async function getProductById(id) {
   try {
     const {
@@ -22,110 +49,44 @@ async function getProductById(id) {
       `
         SELECT *
         FROM products
-        WHERE id = ($1);
+        WHERE id=$1
         `,
       [id]
     );
-
     return product;
   } catch (error) {
-    console.error('ERROR GETTING PRODUCT BY ID');
+    console.log(error);
     throw error;
   }
 }
 
-//Creates New Product And Returns New Product
-async function createProduct(product) {
-  const {
-    name,
-    description,
-    price,
-    imageURL,
-    inStock,
-    category,
-
-  } = product;
+//hope this shit works
+async function attachProductsToOrders(orders) {
   try {
-    const {
-      rows: [newProduct],
-    } = await client.query(
-      `
-        INSERT INTO products(name, description, price, "imageURL", "inStock", category)
-        VALUES ($1, $2, $3, $4, $5, $6)
-        RETURNING *;
-        `,
-      [
-        name,
-        description,
-        price,
-        imageURL,
-        inStock,
-        category,
-      
-      ]
-    );
-
-    return newProduct;
+    const { rows } = await client.query(`
+    SELECT p.*, op.price, op.quantity, op."orderId"
+    FROM products p
+    INNER JOIN order_products op ON op."productId"=p.id
+    `)
+    const ordersWithProducts = orders.map((order) => {
+      order.products = [];
+      for (let i = 0; i < rows.length; i++) {
+        let product = rows[i]
+        if (product.orderId === order.id) {
+          order.products.push(product)
+        }
+      }
+      return order
+    })
+    return ordersWithProducts
   } catch (error) {
-    console.error('ERROR CREATING NEW PRODUCT');
-    throw error;
-  }
-}
-
-async function destroyProduct({ id }) {
-  try {
-    const { rows: [product] } = await client.query(`
-    DELETE
-    FROM products
-    WHERE id = $1
-    ;`, [id])
-
-    //  DELETE
-    // FROM order_products op
-    // INNER JOIN orders o
-    // ON op."orderId" = o.id
-    // WHERE productId = 1
-    // AND o.status != 'completed'
-    const { rows: [deletedOrderProduct] } = await client.query(`
-    SELECT 
-    o.id, o.status, op.id, op."productId", op."orderId"
-    FROM orders o
-    JOIN "order_products" op on op."orderId" = o.id 
-    `, [id])
-
-  }catch(err) {
-    console.error("ERROR DELETING PRODUCT")
-    throw err
-  }
-}
-
-async function updateProduct({ id, ...fields}) {
-  const setString = Object.keys(fields).map(
-    (key, index) => `"${ key }" =$${ index+1 }`
-  ).join(', ')
-
-  if (setString.length === 0) {
-    return
-  }
-  try {
-    const { rows: updatedProduct } = await client.query(`
-    UPDATE products
-    SET ${setString}
-    WHERE id = ${id}
-    RETURNING *
-    ;`, Object.values(fields))
-
-    return updatedProduct
-  } catch(err) {
-    console.error("ERROR UPDATING PRODUCT")
-    throw err
+    console.log(error)
   }
 }
 
 module.exports = {
-  getProductById,
+  createProducts,
   getAllProducts,
-  createProduct,
-  destroyProduct,
-  updateProduct
+  getProductById,
+  attachProductsToOrders
 };

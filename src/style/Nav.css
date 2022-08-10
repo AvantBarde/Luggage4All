@@ -1,0 +1,73 @@
+#navbar {
+    /*
+    add this once everything is finished to get rid of unneccessary scrolling on single products
+    position: absolute;
+    top: 0; */
+    display: flex;
+    background-color: black;
+    width: 100vw;
+    padding: .5em 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.linksList {
+    width: 50%;
+}
+
+.logo {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+}
+
+.logo h2 {
+    text-align: center;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    padding: 0;
+    text-decoration: none;
+    padding: 0 .1em;
+}
+
+.logo a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 40px;
+    margin: 0 .25em;
+}
+
+#navbar ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    list-style: none;
+}
+
+#navbar ul li {
+    margin: 0;
+}
+
+#navbar ul a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: .65em 1em;
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+#navbar ul a:hover {
+    border-bottom: 4px solid #e5e2e2;
+    color: gray;
+}
+
+#navbar ul li {
+    padding: 0 .5em;
+    margin: 0;
+}

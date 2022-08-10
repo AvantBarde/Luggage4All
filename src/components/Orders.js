@@ -22,7 +22,6 @@ function Orders() {
     const mappedOrders = ordersList.map((order) => {
         return (
             <div className='product'>
-                <h2>I'm an order</h2>
                 <p>Order Id:{order.id}</p>
                 <p>Order Status:{order.status}</p>
                 <p>Products: </p>

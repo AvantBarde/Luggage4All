@@ -1,0 +1,91 @@
+.singleContainer {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: 'Kanit', sans-serif;
+
+}
+
+.displaySingleProduct {
+    display: flex;
+    width: 60vw;
+    border: 1px solid blue;
+    margin: 0;
+}
+
+.productInfo {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: space-evenly;
+    margin-left: 2em;
+    border: black 1px solid;
+}
+
+.displaySingleProductIMG {
+    height: 450px;
+    padding-bottom: 0;
+    margin: 0;
+    align-self: center;
+}
+
+.line2 {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.singleName {
+    text-align: center;
+    font-size: 28px;
+    /* font-family: 'Cinzel Decorative', cursive; */
+}
+
+.productHeader {
+    border-bottom: 1px solid #555;
+
+}
+
+.ratings {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.productDetails {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productDetails p {
+    margin: 1em 0;
+}
+
+.productDetails button {
+    width: 150px;
+    padding: .5em 0;
+    align-self: center;
+    border-radius: 20px;
+    margin-bottom: 2em;
+    border: none;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.cartIcon {
+    width: 20px;
+}
+
+.productDetails button:hover {
+    background-color: #eeee00;
+    /* border: 1px solid black; */
+    box-shadow: 0px 0px 6px 1px #ddd;
+    cursor: pointer;
+}
