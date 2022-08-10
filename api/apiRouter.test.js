@@ -16,5 +16,3 @@ describe('/api/health endpoint', () => {
     expect(response.body.healthy).toBe(true);
   });
 });
-
-//hello

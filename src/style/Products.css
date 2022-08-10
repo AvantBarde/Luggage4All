@@ -1,0 +1,52 @@
+.productContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+    font-family: 'Kanit', sans-serif;
+}
+
+.productList {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+
+
+
+}
+
+.product h3 {
+    padding: .25em;
+    font-size: 20px;
+    align-self: center;
+}
+
+.product {
+    margin: 0 10px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    /*have box shadows always or only on hover?*/
+    /* box-shadow: 1px 1px 5px 2px #eee, -1px -1px 6px 2px #eee; */
+}
+
+.product:hover {
+    box-shadow: 1px 1px 5px 2px #ccc, -1px -1px 6px 2px #ccc;
+}
+
+.product img {
+    width: 200px;
+    height: 200px;
+    align-self: center;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.price {
+    font-weight: bold;
+}

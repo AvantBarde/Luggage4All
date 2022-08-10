@@ -1,64 +1,111 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom';
-import { Button, Form, Container, ButtonGroup  } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap';
-import { tokenRegister } from '../axios-services'
-
-
-function Register({username, password, setUsername, setPassword, setToken, confirmPass, setConfirmPass, setEmail, setFirstName, setLastName, setSrror, error, email, firstName, lastName}) {
-
-    const history = useHistory();
-
-
-    const reset = () => { 
-        setPassword("");
-        setUsername("");
-        setEmail("");
-        setFirstName("");
-        setLastName("");
-        setConfirmPass("");
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-
-            if(password===confirmPass){
-                tokenRegister(username, password, email, firstName, lastName, setToken)
-                reset();
-                history.push('./products.js')
-                return
-            } alert("Passwords must match one another")
-            reset();
-    }
-
-
-
+import React, { useState } from "react";
+import { registerUser } from "../FETCHREQUESTS";
+import { Link } from "react-router-dom";
+import '../style/Register.css'
+//firstName, lastName, email, imageURL, username, password, isAdmin
+const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [usernameString, setUsernameString] = useState("");
+  const [passwordString, setPasswordString] = useState("");
+  const [confirmPasswordString, setConfirmPasswordString] = useState("");
+  const [registered, setRegistered] = useState("")
 
   return (
-    <Container>
-        <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formBasicEmail">
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>
-        <ButtonGroup>
-            <LinkContainer to="/register">
-                <Button variant="primary">
-                    Register
-                </Button>
-            </LinkContainer>
-        </ButtonGroup>
-        {error && <p>{error}</p>}
-    </Container>
-  )
-}
+    <div className='registerContainer'>
+      {registered ? <h2>{registered}</h2> : <h2>Register an account!</h2>}
+      <form
+        id="register"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          try {
+            if (passwordString === confirmPasswordString) {
+              await registerUser(firstName, lastName, email, usernameString, passwordString).then((results) => {
+                if (results.message === 'Thank you for registering') {
+                  setRegistered(`${results.user.username} successfully registered, proceed to login.`)
+                } else {
+                  setRegistered(results.message)
+                }
+              });
+            } else {
+              setRegistered('Passwords must match.')
+            }
+          } catch (error) {
+            console.error(error.message);
+          }
+        }}
+      >
+        <fieldset className='usersName'>
+          <input
+            id="first-name"
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={async (e) => {
+              setFirstName(e.target.value);
+            }}
+          />
+          <input
+            id="last-name"
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={async (e) => {
+              setLastName(e.target.value);
+            }}
+          />
+        </fieldset>
+        <fieldset>
+          <input
+            id="username"
+            type="text"
+            placeholder="Username"
+            value={usernameString}
+            onChange={async (e) => {
+              setUsernameString(e.target.value);
+            }}
+          />
+          <input
+            id="email"
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={async (e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </fieldset>
+        <fieldset>
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            minLength={8}
+            value={passwordString}
+            onChange={async (e) => {
+              setPasswordString(e.target.value);
+            }}
+          />
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            minLength={8}
+            value={confirmPasswordString}
+            onChange={async (e) => {
+              setConfirmPasswordString(e.target.value);
+            }}
+          />
+        </fieldset>
+        <fieldset>
+          <button type="submit">Register Account</button>
+        </fieldset>
+        <span>Already have an account?? <Link to="/account/login"> Login here!</Link></span>
+      </form>
 
-export default Register
+    </div>
+  );
+};
+
+export default Register;

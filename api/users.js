@@ -1,143 +1,130 @@
 const express = require("express");
-const usersRouter = express.Router();
+const dotenv = require("dotenv").config();
+const { requireUser } = require("./utils");
+const bcrypt = require('bcrypt')
+
+
 const jwt = require("jsonwebtoken");
-const { User } = require("../db/models");
-const bcrypt = require("bcrypt");
-const SALT_ROUNDS = 10;  
-const { adminRequired } = require("./utils");
+const {
+  createUser,
+  getUserById,
+  getAllUsers,
+  getUser,
+  getUserByUsername,
+} = require("../db/models/users");
+const usersRouter = express.Router();
 
-// Create a new user. Require username and password, and hash password before saving user to DB. Require all passwords to be at least 8 characters long.
-usersRouter.post("/", async (req, res, next) => {
-  const { username, password, firstName, lastName, email } = req.body;
-  if (!username || !password || !firstName || !lastName || !email) {
-    res.status(400).send("Missing required fields");
-  } 
-  if (password.length < 8) {
-    res.status(400).send("Password must be at least 8 characters long");
-    }
-  else {
-    try {
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-      const user = await User.createUser({
-        username,
-        hashedPassword,
-        firstName,
-        lastName,
-        email,
-      });
-      res.send(user);
-      delete user.hashedPassword;
-    } catch (error) {
-      next(error);
-    }
-  }
-}
-);
+usersRouter.use(logger);
 
-// Log in the user. Require username and password, and verify that plaintext login password matches the saved hashed password before returning a JSON Web Token.
-usersRouter.post("/login", async (req, res, next) => {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        res.status(400).send("Missing required fields");
-    } else {
-        try {
-        const user = await User.getUserByUsername(username);
-        if (user && await bcrypt.compare(password, user.password)) {
-            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-            res.send({ token });
-        } else {
-            res.status(401).send("Invalid username or password");
-        }
-        } catch (error) {
-        next(error);
-        }
-    }
-    }
-);
+usersRouter.get("/test", (req, res) => {
+  res.send("simple test");
+});
 
-// Send back the logged-in user's data if a valid token is supplied in the header.
-usersRouter.get("/me", async (req, res, next) => {
-    const token = req.headers.authorization;
-    if (!token) {
-        res.status(401).send("No token");
-    } else {
-        try { 
-        const user = await User.getUserById(jwt.verify( token, process.env.JWT_SECRET ).id);
-        if (user) {
-            res.send(user);
-        }
-        } catch (error) {
-        next(error);
-        }
+usersRouter.post("/register", async (req, res, next) => {
+  const { firstName, lastName, email, imageURL, username, password, isAdmin } = req.body.user;
+  console.log('in the api registering')
+  console.log('req is: ', req.body)
+  try {
+    const _user = await getUserByUsername(username);
+    if (_user) {
+      res.send({ message: `A user with username ${username} already exists` });
+      next();
     }
-    }
-);
 
-// update user admin rights
-usersRouter.patch("/:userId", adminRequired, async (req, res, next) => {
-    const { userId } = req.params;
-    const { isAdmin } = req.body;
-    if (!userId || !isAdmin) {
-        res.status(400).send("Missing required fields");
-    } else {
-        try {
-        const user = await User.updateUser(userId, isAdmin);
-        res.send(user);
-        } catch (error) {
-        next(error);
-        }
-    }
-    }
-);
+    const user = await createUser({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      imageURL: imageURL,
+      username: username,
+      password: password,
+      isAdmin: isAdmin,
+    });
 
-// delete user from database, requires admin
-usersRouter.delete("/:userId", adminRequired, async (req, res, next) => {
-    const { userId } = req.params;
-    if (!userId) {
-        res.status(400).send("Missing required fields");
-    } else {
-        try {
-        const user = await User.deleteUser(userId);
-        res.send(user);
-        } catch (error) {
-        next(error);
-        }
-    }
-    }
-);
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username: user.username
+      },
+      process.env.JWT_KEY
+    );
 
-// admin get all user info
-
-usersRouter.get("/", adminRequired, async (req, res, next) => {
-    try {
-    const users = await User.getAllUsers();
-    res.send(users);
-    } catch (error) {
+    const data = {
+      message: "Thank you for registering",
+      token: token,
+      user: user,
+    };
+    console.log('you have reached the data', data)
+    res.send(data);
+    console.log("you've reached this far");
+  } catch (error) {
     next(error);
+  }
+});
+
+usersRouter.get("/me", async (req, res, next) => {
+  try {
+    const me = await getUserByUsername(username);
+    res.send(me);
+  } catch (error) {
+    next(error);
+  }
+});
+
+usersRouter.post("/login", async (req, res, next) => {
+  const { username, password } = req.body.user
+  console.log('user info', req.body.user)
+  if (!username || !password) {
+    console.log('no username or password, silly')
+    return
+  }
+  try {
+    const user = await getUserByUsername(username)
+    if (user) {
+      const match = await bcrypt.compareSync(password, user.password);
+
+      console.log(password, user.password)
+      if (!match) {
+        console.log('not a match');
+        res.send({ message: 'Username & Password combination is incorrect.' })
+      } else {
+        const token = jwt.sign(
+          {
+            id: user.id,
+            username: user.username
+
+          },
+          process.env.JWT_KEY
+        );
+        const confirmation = {
+          message: "you're logged in!",
+          token: token,
+        };
+        confirmation.user = user;
+        res.send(confirmation);
+      }
     }
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+
+function logger(req, res, next) {
+  console.log("loggggg");
+  next();
+}
+
+usersRouter.get("/me", requireUser, async (req, res, next) => {
+  try {
+    if (req.user) {
+      res.send(req.user);
     }
-);
-
-// updateuser(user)
-usersRouter.patch("/:userId", adminRequired, async (req, res, next) => {
-    const { userId } = req.params;
-    const { username, password, firstName, lastName, email } = req.body;
-    if (!userId || !username || !password || !firstName || !lastName || !email) {
-        res.status(400).send("Missing required fields");
-    } else {
-        try {
-        const user = await User.updateUser(userId, username, password, firstName, lastName, email);
-        res.send(user);
-        } catch (error) {
-        next(error);
-        }
-    }
-    }
-);
-
-
-
-
-
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = usersRouter;

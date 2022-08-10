@@ -1,0 +1,38 @@
+.singleUserContainer {
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    font-family: 'Kanit', sans-serif;
+    height: 90vh;
+}
+
+.singleUserContainer h1 {
+    align-self: center;
+}
+
+.singleUser {
+    display: flex;
+    margin-bottom: .5em;
+}
+
+.singleUser img {
+    width: 200px;
+}
+
+.singleUserContainer button {
+    padding: .5em;
+    font-size: 24px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.singleUser strong {
+    font-size: 20px;
+    margin-right: 2em;
+}
+
+.singleUser img {
+    border: 1px solid blue;
+    margin: 1em;
+    position: relative;
+    top: -25px;
+}

@@ -1,5 +1,11 @@
-import React from 'react'
-
-
-
-export { default as App } from './App';
+export { default as App } from "./App";
+export { default as Products } from "./Products";
+export { default as Login } from "./login";
+export { default as Orders } from "./Orders";
+export { default as Users } from "./Users";
+export { default as Navbar } from "./Nav";
+export { default as SingleProduct } from "./SingleProduct";
+export { default as Register } from "./register";
+export { default as Cart } from "./cart";
+export { default as SingleUser } from "./SingleUser"
+export { default as FrontPage } from "./FrontPage";

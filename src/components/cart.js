@@ -1,50 +1,34 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
-import { Card, Container } from 'react-bootstrap'
-import { getCart } from "../axios-services"
-import CartCard from './cartCard'
+import React, { useEffect, useState } from 'react'
 
+import '../style/Products.css'
 
-function Cart(props) {
+function Cart({cartInfo, setCartInfo}) {
 
-    const [cart, setCart] = useState([])
-    const [error, setError] = useState('')
+      useEffect(() => {
+        window.localStorage.setItem('cartInfo', cartInfo);
+      }, [cartInfo]);
 
-    useEffect (() => {
-        try {
-            const response = getCart(props.userId)
-            if (response) {
-                setCart(response)
-            } else {
-                setError('Error getting cart')
-            }
-        }
-        catch (error) {
-            console.error(error)
-        }
-    }
-    , [])
-
-
-
-  return (
-    <Container className='bg-light'>
-        <center><h1>Cart</h1></center>
-        {Array.isArray(cart) ?  cart.map(product => (
-            <CartCard key={product.productId}
-            name={product.name}
-            description={product.description}
-            price={product.price}
-            imageURL={product.imageURL}
-            inStock={product.inStock}
-            category={product.category}
-                />
-        ))
-    :
-    null}
-    </Container>
-
-  )
+      const cartData = [{
+          id: cartInfo.id, 
+          name: cartInfo.name, 
+          description: cartInfo.description, 
+          price: cartInfo.price, 
+          imageURL: cartInfo.imageURL
+        }]
+        console.log(cartInfo.id)
+    return (
+        <div>
+            {cartData?.map((data) => {
+            return (
+            <>
+            <p>{data.name}</p>
+            <p>{data.description}</p>
+            <p><img style = {{height: '200px'}} alt = '' src ={data.imageURL}/></p>
+            </>
+        )})}
+        {cartInfo.id ? <div><button>Check out</button>{cartData.price}</div> : <h1>Nothing In Cart :(</h1>}
+        </div>
+    )
 }
 
 export default Cart
