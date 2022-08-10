@@ -1,10 +1,14 @@
 .productContainer {
+    /* background-image: url('https://images.pexels.com/photos/247929/pexels-photo-247929.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); */
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;
     font-family: 'Kanit', sans-serif;
 }
+
+
 
 .productList {
     display: grid;
@@ -38,6 +42,7 @@
     width: 200px;
     height: 200px;
     align-self: center;
+    border-radius: 5px;
 }
 
 .row {

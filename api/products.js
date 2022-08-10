@@ -18,10 +18,6 @@ productsRouter.get("/", async (req, res, next) => {
     }
 });
 
-productsRouter.get("/tester", (req, res) => {
-    res.send("tester")
-});
-
 // GET /products/:productId
 productsRouter.get("/:productId", async (req, res, next) => {
     try {
