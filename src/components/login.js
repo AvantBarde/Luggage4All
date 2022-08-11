@@ -4,7 +4,7 @@ import '../style/Login.css'
 import { Link } from 'react-router-dom'
 // import { Link } from 'react-router-dom'
 
-const Login = ({ setToken, setUser }) => {
+const Login = ({ setToken, setUser, retainUserName }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [heading, setHeading] = useState('')
@@ -41,7 +41,7 @@ const Login = ({ setToken, setUser }) => {
           <input
             id="username-login"
             type="text"
-            placeholder="Username"
+            placeholder={retainUserName ? `Please login, ${retainUserName}` : "Username"}
             value={username}
             onChange={async (e) => {
               setUsername(e.target.value);

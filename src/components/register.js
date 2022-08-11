@@ -3,7 +3,7 @@ import { registerUser } from "../FETCHREQUESTS";
 import { Link, useHistory} from "react-router-dom";
 import '../style/Register.css'
 //firstName, lastName, email, imageURL, username, password, isAdmin
-const Register = () => {
+const Register = ({setRetainUserName}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,6 +26,7 @@ const Register = () => {
               await registerUser(firstName, lastName, email, usernameString, passwordString).then((results) => {
                 if (results.message === 'Thank you for registering') {
                   setRegistered(`${results.user.username} successfully registered, proceed to login.`)
+                  setRetainUserName(usernameString)
                   history.push('./login');
                 } else {
                   setRegistered(results.message)

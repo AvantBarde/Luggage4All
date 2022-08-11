@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import '../style/Products.css'
 
 function Cart({cartInfo, setCartInfo}) {
+
+        const history = useHistory();
 
       useEffect(() => {
         window.localStorage.setItem('cartInfo', cartInfo);

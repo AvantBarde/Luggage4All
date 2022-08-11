@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 const SingleUser = ({ user, setUser, setToken, token }) => {
   console.log('trying to pull user:', user.username)
+  console.log('trying to pull user:', user)
 
   return (
 

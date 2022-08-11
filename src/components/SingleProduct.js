@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { fetchSingleProduct } from '../FETCHREQUESTS';
 import '../style/SingleProduct.css'
 
@@ -8,6 +8,7 @@ function SingleProduct ({setCartInfo}) {
     const { productId } = useParams()
     const [singleProduct, setSingleProduct] = useState([]);
 
+    const history = useHistory();
 
     useEffect(() => {
         async function fetchDisplayProduct() {
@@ -40,6 +41,7 @@ function SingleProduct ({setCartInfo}) {
                         <button onClick={(e) => {
                             e.preventDefault()
                             setCartInfo(singleProduct);
+                            history.push('/orders/cart')
                         }
                         }>Add to Cart</button>
                     </div>

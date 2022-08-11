@@ -34,7 +34,9 @@ const App = () => {
   const parsedUser = JSON.parse(userFromStorage)
   const [token, setToken] = useState(tokenFromStorage);
   const [user, setUser] = useState(parsedUser);
-  const [cartInfo, setCartInfo] = useState({})
+  const [cartInfo, setCartInfo] = useState({});
+  const [retainUserName, setRetainUserName] = useState('');
+  
   useEffect(() => {
     const getAPIStatus = async () => {
       const { healthy } = await getAPIHealth();
@@ -43,6 +45,8 @@ const App = () => {
 
     getAPIStatus();
   }, []);
+
+  console.log(retainUserName);
 
   return (
     <div className="app-container">
@@ -68,10 +72,10 @@ const App = () => {
               <Users user={user} />
             </Route>
             <Route path="/account/login">
-              {token ? <Redirect to='/' /> : <Login setToken={setToken} setUser={setUser} user={user} />}
+              {token ? <Redirect to='/' /> : <Login setToken={setToken} setUser={setUser} user={user} retainUserName = {retainUserName} setRetainUserName = {setRetainUserName}/>}
             </Route>
             <Route path="/account/register">
-              {token ? <Redirect to='/' /> : <Register />}
+              {token ? <Redirect to='/' /> : <Register retainUserName = {retainUserName} setRetainUserName = {setRetainUserName}/>}
             </Route>
             <Route exact path="/orders">
               <Orders user={user} />
