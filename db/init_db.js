@@ -4,7 +4,7 @@ const {
   Products,
   Orders,
   Users,
-  Order_Products,
+  OrderProducts,
   Reviews,
 } = require('./models');
 
@@ -277,7 +277,7 @@ async function populateInitialData() {
     );
 
 
-    const product1 = await Products.createProduct(
+    const product1 = await Products.createProducts(
       {
         name: "Twill Duffle Bag",
         description: "A duffle bag made of twill.",
@@ -286,16 +286,16 @@ async function populateInitialData() {
         inStock: true,
         category: "bags",
       })
-      const product2 = await Products.createProduct(
+      const product2 = await Products.createProducts(
       {
-        name: "Rugged Wallet",
-        description: "A rugged wallet made of leather.",
+        name: " Expandable Luggage Set",
+        description: "Expandable Luggage Set for any occasion.",
         price: 200.00,
-        imageURL: "https://filson-canto.imgix.net/fmkjhfb4et1udejmtie9lm4531/CIA-Mo1mP9IVCjyTzK_WCDFz9Yg/original?h=700&w=1500&bg=ffffff&q=80&auto=format,compress",
+        imageURL: "https://i0.wp.com/www.naftaliinc.com/wp-content/uploads/2020/06/TLLUGRTFBK-1-1.jpg?w=1000&ssl=1",
         inStock: true,
         category: "accessories",
       })
-      const product3 = await Products.createProduct(
+      const product3 = await Products.createProducts(
         {
           name: "Nylon Backpack",
           description: "A backpack made of nylon.",
@@ -304,7 +304,7 @@ async function populateInitialData() {
           inStock: true,
           category: "bags",
         })
-      const product4 = await Products.createProduct(
+      const product4 = await Products.createProducts(
         {
           name: "Leather Briefcase",
           description: "A leather briefcase.",
@@ -313,7 +313,7 @@ async function populateInitialData() {
           inStock: true,
           category: "travel",
         })
-      const product5 = await Products.createProduct(
+      const product5 = await Products.createProducts(
         {
           name: "Cloth Messenger Bag",
           description: "A messenger bag made of cloth.",
@@ -322,7 +322,7 @@ async function populateInitialData() {
           inStock: true,
           category: "bags",
         });
-      const product6 = await Products.createProduct(
+      const product6 = await Products.createProducts(
         {
           name: "Zip Tote Bag - Large ",
           description: "A leakproof bag made for beachdays.",
@@ -331,7 +331,7 @@ async function populateInitialData() {
           inStock: true,
           category: "travel",
         });
-      // const product7 = await Products.createProduct(
+      // const product7 = await Products.createProducts(
       //   {
       //     name: "Zip Tote Bag - Large ",
       //     description: "A leakproof bag made for beachdays.",
@@ -340,7 +340,7 @@ async function populateInitialData() {
       //     inStock: true,
       //     category: "travel",
       //   });
-      const product8 = await Products.createProduct(
+      const product8 = await Products.createProducts(
         {
           name: "Tech Assortment Pouch",
           description: "A bag to rule them all. Keep all your cords, mouse, and everything else you might need organized and protected on the go.",
@@ -350,7 +350,7 @@ async function populateInitialData() {
           category: "accessories",
         });
 
-    const ordersToCreate = await Orders.createOrder(
+    const ordersToCreate = await Orders.createOrders(
       {
         status: "created",
         userId: 1,
@@ -368,28 +368,28 @@ async function populateInitialData() {
       }
     );
 
-    const orderProduct1 = await Order_Products.addProductToOrder(
+    const orderProduct1 = await OrderProducts.addProductToOrder(
       {
         productId: 1,
         orderId: 1,
         price: 100.00,
         quantity: 1,
       })
-    const orderProduct2 = await Order_Products.addProductToOrder(
+    const orderProduct2 = await OrderProducts.addProductToOrder(
       {
         productId: 2,
         orderId: 1,
         price: 200,
         quantity: 1,
       })
-    const orderProduct3 = await Order_Products.addProductToOrder(
+    const orderProduct3 = await OrderProducts.addProductToOrder(
       {
         productId: 3,
         orderId: 1,
         price: 150,
         quantity: 1,
       })
-    const orderProduct4 = await Order_Products.addProductToOrder(
+    const orderProduct4 = await OrderProducts.addProductToOrder(
       {
         productId: 4,
         orderId: 2,

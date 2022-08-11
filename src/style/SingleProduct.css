@@ -11,7 +11,8 @@
 .displaySingleProduct {
     display: flex;
     width: 60vw;
-    border: 1px solid blue;
+    border: 1px solid inherit;
+    box-shadow: 6px 10px 17px 0px rgba(0,0,0,0.75);
     margin: 0;
 }
 

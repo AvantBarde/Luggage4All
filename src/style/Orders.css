@@ -1,5 +1,6 @@
 .productOrder {
-    background-color: white;
+    background-color: inherit;
     padding: 5px;
-    border: 10px solid black;
+    border: 5px solid black;
+    box-shadow: 6px 10px 17px 0px rgba(0,0,0,0.75);
 }

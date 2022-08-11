@@ -8,6 +8,11 @@
     font-family: 'Kanit', sans-serif;
 }
 
+.productName, a {
+    color: white;
+    text-decoration: none;
+}
+
 
 
 .productList {
@@ -30,6 +35,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    /* border: 1px solid black; */
     /*have box shadows always or only on hover?*/
     /* box-shadow: 1px 1px 5px 2px #eee, -1px -1px 6px 2px #eee; */
 }
@@ -43,6 +49,7 @@
     height: 200px;
     align-self: center;
     border-radius: 5px;
+    border: 1px solid black;
 }
 
 .row {
@@ -50,6 +57,11 @@
     justify-content: space-between;
     margin: 5px 0;
     padding: 5px;
+}
+
+.rating:hover {
+    cursor: pointer;
+    color: rgb(90, 7, 7);
 }
 
 .price {
