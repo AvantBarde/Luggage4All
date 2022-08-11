@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 // where each adapter fetches specific info from our express server's /api route
 import {
   getAPIHealth,
-} from "../FETCHREQUESTS";
+} from "../API";
 import "../style/App.css";
 
 import {
@@ -25,6 +25,7 @@ import {
   SingleProduct,
   SingleUser,
   FrontPage,
+  EditProfile,
 } from "../components";
 
 const App = () => {
@@ -51,7 +52,7 @@ const App = () => {
   return (
     <div className="app-container">
       <Router>
-        <Navbar token={token} />
+        <Navbar token={token} setToken = {setToken} setUser={setUser} />
         <div className="content">
           <Switch>
             <Route exact path="/FrontPage">
@@ -61,6 +62,9 @@ const App = () => {
                 <FrontPage />
                { console.log(APIHealth)}
               </>
+            </Route>
+            <Route exact path="/editProfile">
+              <EditProfile />
             </Route>
             <Route exact path="/products">
               <Products />

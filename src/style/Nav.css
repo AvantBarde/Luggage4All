@@ -4,7 +4,7 @@
     position: absolute;
     top: 0; */
     display: flex;
-    background-color: black;
+    background-color: rgb(21, 16, 16);
     width: 100vw;
     padding: .5em 0;
     justify-content: space-between;
@@ -49,6 +49,13 @@
     flex-direction: row;
     list-style: none;
 }
+
+#logout {
+    background: inherit;
+    border: none;
+}
+
+
 
 #navbar ul li {
     margin: 0;

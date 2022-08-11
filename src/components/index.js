@@ -9,3 +9,4 @@ export { default as Register } from "./register";
 export { default as Cart } from "./cart";
 export { default as SingleUser } from "./SingleUser"
 export { default as FrontPage } from "./FrontPage";
+export { default as EditProfile } from "./editProfile";

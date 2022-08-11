@@ -41,7 +41,8 @@
 }
 
 .product:hover {
-    box-shadow: 1px 1px 5px 2px #ccc, -1px -1px 6px 2px #ccc;
+    border: 5px solid rgb(31, 25, 25);
+    box-shadow: 6px 10px 17px 0px rgba(0, 0, 0, 0.75);
 }
 
 .product img {

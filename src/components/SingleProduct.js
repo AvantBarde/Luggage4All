@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom';
-import { fetchSingleProduct } from '../FETCHREQUESTS';
+import { fetchSingleProduct } from '../API';
 import '../style/SingleProduct.css'
 
 //pass in id as paramater, left empty just to test out specific products.

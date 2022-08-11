@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchAllProducts } from '../FETCHREQUESTS';
+import { fetchAllProducts } from '../API';
 import { Link } from 'react-router-dom';
 import '../style/Products.css'
 

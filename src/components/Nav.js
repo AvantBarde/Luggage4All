@@ -1,32 +1,45 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import '../style/Nav.css'
 
-const Navbar = ({ token }) => {
+const Navbar = ({ token, setToken, setUser }) => {
+
+  const logOut = () => {
+    return (
+      <button id = "logout" onClick={() => {
+        setToken('')
+        setUser({})
+        localStorage.clear()
+        // need to redirect to login page.
+      }}>Log out</button>
+    )
+   }
+
   return (
     <nav id="navbar">
-      <div className='logo'>
-        <Link to='/FrontPage'>
-          {/* <img src='https://cdn-icons.flaticon.com/png/128/2314/premium/2314834.png?token=exp=1658543142~hmac=31e21e4b5128dd06de480abdbc6fa68c'></img> */}
-          <h2>Luggage4All</h2>
-
-        </Link>
-      </div>
       <ul className='linksList'>
         <li>
-          {token ? <Link to="/products">Products</Link> : null}
+        <Link to="/products">Products</Link>
         </li>
         <li>
           {token ? <Link to='/orders/cart' >Cart</Link> : null}
         </li>
         <li>
-          {token ? <Link to='/orders'>Orders</Link> : <Link to='/account/login'>Login</Link>}
+          {token ? <Link to='/orders'>Orders</Link> : null}
+        </li>
+      </ul>
+      <div className='logo'>
+        <Link to='/FrontPage'>
+          <h2>Luggage4All <img src={require('../components/img/airplane (1).png')} alt ="Luggage icon"/></h2>
+          
+        </Link>
+      </div>
+      <ul className='linksList'>
+        <li>
+          {!token ? <Fragment><Link to='/account/register'>Register</Link>/<Link to='/account/login'>Login</Link></Fragment> : null}
         </li>
         <li>
-          {!token ? <Link to='/account/register'>Register</Link> : null}
-        </li>
-        <li>
-          {token ? <Link to='/account'>Account</Link> : null}
+          {token ? <Fragment><Link to='/account'>Account</Link>/<Link to='/account/login'>{logOut()}</Link></Fragment> : null}
         </li>
 
       </ul>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerUser } from "../FETCHREQUESTS";
+import { registerUser } from "../API";
 import { Link, useHistory} from "react-router-dom";
 import '../style/Register.css'
 //firstName, lastName, email, imageURL, username, password, isAdmin

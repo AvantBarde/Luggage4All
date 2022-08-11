@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginUser } from "../FETCHREQUESTS";
+import { loginUser } from "../API";
 import '../style/Login.css'
 import { Link } from 'react-router-dom'
 // import { Link } from 'react-router-dom'

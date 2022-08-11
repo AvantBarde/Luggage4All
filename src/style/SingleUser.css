@@ -1,38 +1,94 @@
-.singleUserContainer {
-    /* border: 1px solid blue; */
-    display: flex;
-    flex-direction: column;
-    font-family: 'Kanit', sans-serif;
-    height: 90vh;
+* {
+    margin: 0;
+    padding: 0
 }
 
-.singleUserContainer h1 {
-    align-self: center;
+/* body {
+    background-color: #000
+} */
+
+.card {
+    width: 350px;
+    background-color: #efefef;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+    border: 5px solid black;
+    box-shadow: 6px 10px 17px 0px rgba(0,0,0,0.75);
 }
 
-.singleUser {
-    display: flex;
-    margin-bottom: .5em;
+.image img {
+    transition: all 0.5s
 }
 
-.singleUser img {
-    width: 200px;
+.card:hover .image img {
+    transform: scale(1.5)
 }
 
-.singleUserContainer button {
-    padding: .5em;
-    font-size: 24px;
-    font-family: 'Kanit', sans-serif;
+.btn {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%
 }
 
-.singleUser strong {
-    font-size: 20px;
-    margin-right: 2em;
+.name {
+    font-size: 22px;
+    font-weight: bold
 }
 
-.singleUser img {
-    border: 1px solid black;
-    margin: 1em;
-    position: relative;
-    top: -25px;
+.idd {
+    font-size: 14px;
+    font-weight: 600
+}
+
+.idd1 {
+    font-size: 12px
+}
+
+.number {
+    font-size: 22px;
+    font-weight: bold
+}
+
+.follow {
+    font-size: 12px;
+    font-weight: 500;
+    color: #444444
+}
+
+.editProfile { 
+    color: red;
+}
+
+.btn1 {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: #000;
+    color: #aeaeae;
+    font-size: 15px
+}
+
+.text span {
+    font-size: 13px;
+    color: #545454;
+    font-weight: 500
+}
+
+.icons i {
+    font-size: 19px
+}
+
+hr .new1 {
+    border: 1px solid
+}
+
+.join {
+    font-size: 14px;
+    color: #a0a0a0;
+    font-weight: bold
+}
+
+.date {
+    background-color: #212529;
 }
