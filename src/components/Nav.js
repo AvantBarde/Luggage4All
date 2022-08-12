@@ -39,7 +39,7 @@ const Navbar = ({ token, setToken, setUser }) => {
           {!token ? <Fragment><Link to='/account/register'>Register</Link>/<Link to='/account/login'>Login</Link></Fragment> : null}
         </li>
         <li>
-          {token ? <Fragment><Link to='/account'>Account</Link>/<Link to='/account/login'>{logOut()}</Link></Fragment> : null}
+          {token ? <Fragment><Link to='/account'>Account</Link>/<Link to='account/login'>{logOut()}</Link></Fragment> : null}
         </li>
 
       </ul>
