@@ -42,7 +42,7 @@ const Login = ({ setToken, setUser, retainUserName }) => {
             id="username-login"
             type="text"
             placeholder={retainUserName ? `Please login, ${retainUserName}` : "Username"}
-            value={username}
+            value={retainUserName ? retainUserName : username}
             onChange={async (e) => {
               setUsername(e.target.value);
             }}
